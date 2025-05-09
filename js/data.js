@@ -1,4 +1,5 @@
 const baseUrl = "https://safethai.wyndigitalgroup.com/";
+let globalScore = 0;
 
 const slides = [
   {
@@ -117,6 +118,11 @@ const slides = [
     type: "quiz",
     image: baseUrl + "assets/images/27.webp",
     duration: 8000,
+    scoreMap: {
+      light: 10,
+      tv: 10,
+      fan: 10,
+    },
     overlays: [
       {
         id: "light",
@@ -176,7 +182,8 @@ const slides = [
     type: "narration",
     image: baseUrl + "assets/images/32.webp",
     texts: [],
-  },{
+  },
+  {
     type: "narration",
     image: baseUrl + "assets/images/33.webp",
     texts: [],
@@ -580,7 +587,8 @@ const slides = [
     type: "narration",
     image: baseUrl + "assets/images/111.webp",
     texts: [],
-  },{
+  },
+  {
     type: "narration",
     image: baseUrl + "assets/images/112.webp",
     texts: [],
@@ -789,10 +797,19 @@ const slides = [
     type: "narration",
     image: baseUrl + "assets/images/151.webp",
     texts: [],
-  },{
+  },
+  {
     type: "answer",
     image: baseUrl + "assets/images/151_1.webp",
     texts: [],
   },
 ];
-export { slides };
+
+function saveScore(score) {
+  const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
+  const newScore = oldScore + score;
+  localStorage.setItem("totalScore", newScore.toString());
+  globalScore = newScore;
+}
+
+export { slides, globalScore, saveScore };
