@@ -3,8 +3,22 @@ import { slides } from "./data.js";
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
+
 let currentSlide = 0;
 let isImg1Active = true;
+
+// ✅ เพิ่ม: set เก็บ id ปุ่มที่ต้องกดให้ครบ
+const requiredIds = new Set(["light", "tv", "fan"]);
+const clickedIds = new Set(); // ไว้เก็บ id ที่ผู้ใช้กดแล้ว
+
+// ✅ เพิ่ม: ตรวจว่าผู้ใช้กดครบหรือยัง
+function tryGoToNextSlide(id) {
+  clickedIds.add(id);
+  if ([...requiredIds].every((item) => clickedIds.has(item))) {
+    currentSlide = 2; // ไปสไลด์ที่ 3 (index 2)
+    showSlide(currentSlide);
+  }
+}
 
 async function showSlide(index) {
   const slide = slides[index];
@@ -70,6 +84,8 @@ async function showSlide(index) {
             overlay.classList.add(overlay.dataset.offClass);
           }
         }
+
+        tryGoToNextSlide(id); // ✅ เพิ่ม: เรียกฟังก์ชันตรวจว่ากดครบหรือยัง
         dot.remove();
       });
 
@@ -77,12 +93,15 @@ async function showSlide(index) {
     });
   }
 
-  setTimeout(() => {
-    currentSlide++;
-    if (currentSlide < slides.length) {
-      showSlide(currentSlide);
-    }
-  }, slide.duration || 2000);
+  // ✅ เปลี่ยน slide อัตโนมัติ เฉพาะถ้าไม่ใช่ quiz ที่ต้องรอ
+  if (index !== 1) {
+    setTimeout(() => {
+      currentSlide++;
+      if (currentSlide < slides.length) {
+        showSlide(currentSlide);
+      }
+    }, slide.duration || 2000);
+  }
 }
 
 showSlide(currentSlide);
