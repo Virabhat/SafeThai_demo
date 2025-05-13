@@ -82,6 +82,61 @@ const slidesPart2  = [
     image: baseUrl + "/assets/images/34.webp",
     texts: [],
   },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/35.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/36.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/37.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/38.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/39.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/40.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/41.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/42.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/43.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/44.webp",
+    texts: [],
+  },
+  {
+    type: "narration",
+    image: baseUrl + "/assets/images/45.webp",
+    texts: [],
+  },
 ];
 
 function saveScore(score) {
