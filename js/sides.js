@@ -1,7 +1,8 @@
 import { slidesPart1 } from "./data_one.js";
 import { slidesPart2 } from "./data_two.js";
 
-const slides = [...slidesPart1, ...slidesPart2]; // รวม slide
+// รวม slides ทั้งหมด
+const slides = [...slidesPart1, ...slidesPart2];
 
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
@@ -14,7 +15,7 @@ const requiredIds = new Set(["light", "tv", "fan"]);
 let clickedIds = new Set();
 
 function showSlide(index) {
-  // ✅ ล้างของเก่า
+  // ล้าง element เดิม
   container.querySelectorAll(".text-overlay, .overlay, .glow-dot, .time-bar-container").forEach(el => el.remove());
   if (quizTimer) {
     clearTimeout(quizTimer);
@@ -27,26 +28,30 @@ function showSlide(index) {
 
   console.log(`📸 Slide ${index + 1}/${slides.length}`);
   console.log("🖼️ Image:", slide.image);
-  console.log("📝 Texts:", slide.texts?.length ? slide.texts : "No texts");
 
-  // ✅ เปลี่ยนภาพ
+  // เปลี่ยนภาพ
   nextImg.src = slide.image;
   nextImg.classList.add("active");
   currentImg.classList.remove("active");
   isImg1Active = !isImg1Active;
 
-  // ✅ แสดงข้อความแบบ delay ทีละอัน
+  // ล้างข้อความ
+  container.querySelectorAll(".text-overlay").forEach(el => el.remove());
+
+  // แสดงข้อความแบบ delay
   if (slide.texts && slide.texts.length > 0) {
     let totalDelay = 0;
 
     slide.texts.forEach(({ content, delay = 1000, position, styleClass }) => {
       totalDelay += delay;
+
       setTimeout(() => {
         container.querySelectorAll(".text-overlay").forEach(el => el.remove());
 
         const textDiv = document.createElement("div");
         textDiv.className = "text-overlay";
         textDiv.innerText = content;
+
         textDiv.classList.add(position === "top" ? "text-top" : "text-bottom");
         if (styleClass) textDiv.classList.add(styleClass);
 
@@ -54,6 +59,7 @@ function showSlide(index) {
       }, totalDelay);
     });
 
+    // ไปต่อเฉพาะ non-quiz
     if (slide.type !== "quiz") {
       setTimeout(() => {
         goToNextSlide();
@@ -67,37 +73,15 @@ function showSlide(index) {
     }
   }
 
-  // ✅ ถ้าเป็น quiz
+  // ถ้าเป็น quiz
   if (slide.type === "quiz") {
     clickedIds = new Set();
-    startQuizTimer(5000);
     setupQuizInteractions(slide);
+    startQuizTimer(5000);
   }
 }
 
-function startQuizTimer(duration) {
-  const barContainer = document.createElement("div");
-  barContainer.className = "time-bar-container";
-
-  const barFill = document.createElement("div");
-  barFill.className = "time-bar-fill";
-
-  barContainer.appendChild(barFill);
-  container.appendChild(barContainer);
-
-  setTimeout(() => {
-    barFill.style.transition = `width ${duration}ms linear`;
-    barFill.style.width = "100%";
-  }, 50);
-
-  quizTimer = setTimeout(() => {
-    console.log("⏳ Timeout: auto next");
-    goToNextSlide();
-  }, duration);
-}
-
 function setupQuizInteractions(slide) {
-  // ✅ ปุ่ม overlays
   slide.overlays?.forEach(({ id, src, offSrc, top, left, width, offClass }) => {
     const img = document.createElement("img");
     img.src = src;
@@ -111,7 +95,6 @@ function setupQuizInteractions(slide) {
     container.appendChild(img);
   });
 
-  // ✅ จุดกด glow-dot
   slide.glows?.forEach(({ id, top, left }) => {
     const dot = document.createElement("div");
     dot.className = "glow-dot";
@@ -145,14 +128,41 @@ function tryGoToNextSlide(id) {
   }
 }
 
+function startQuizTimer(duration) {
+  container.querySelectorAll(".time-bar-container").forEach(el => el.remove());
+
+  const barContainer = document.createElement("div");
+  barContainer.className = "time-bar-container";
+
+  const barFill = document.createElement("div");
+  barFill.className = "time-bar-fill";
+
+  barContainer.appendChild(barFill);
+  container.appendChild(barContainer);
+
+  setTimeout(() => {
+    barFill.style.transition = `width ${duration}ms linear`;
+    barFill.style.width = "100%";
+  }, 50);
+
+  quizTimer = setTimeout(() => {
+    if ([...requiredIds].every(item => clickedIds.has(item))) {
+      goToNextSlide();
+    } else {
+      console.log("⛔ Quiz failed: skip to slide 21");
+      currentSlide = 3; // ไป index 20 = slide ที่ 21
+      showSlide(currentSlide);
+    }
+  }, duration);
+}
+
 function goToNextSlide() {
   currentSlide++;
   if (currentSlide < slides.length) {
     showSlide(currentSlide);
   } else {
-    console.log("✅ All slides finished");
+    console.log("✅ All slides completed");
   }
 }
 
-// 🚀 เริ่มต้น
 showSlide(currentSlide);
