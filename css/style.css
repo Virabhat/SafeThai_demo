@@ -51,20 +51,21 @@ html {
 
 .text-overlay {
   position: absolute;
+  color: #1E146C;
+  padding: 10px 16px;
+  border-radius: 8px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Mitr';
+  max-width: 90%;
   font-size: 18px;
-  color: #1E146C;
-  opacity: 0;
-  transition: opacity 1s;
   text-align: center;
-  white-space: nowrap;
-  z-index: 2;
+  z-index: 9999; /* 💥 ให้แน่ใจว่าอยู่บนสุด */
+  opacity: 1;
 }
 
+
 .text-top {
-  top: 10%;
+  top: 5%;
 }
 
 .text-bottom {

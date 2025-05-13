@@ -1,4 +1,8 @@
-import { slides } from "./data.js";
+import { slidesPart1 } from "./data_one.js";
+import { slidesPart2 } from "./data_two.js";
+
+const slides = [...slidesPart1, ...slidesPart2]; 
+
 
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
@@ -7,100 +11,60 @@ const img2 = document.getElementById("img2");
 let currentSlide = 0;
 let isImg1Active = true;
 
-// ✅ เพิ่ม: set เก็บ id ปุ่มที่ต้องกดให้ครบ
-const requiredIds = new Set(["light", "tv", "fan"]);
-const clickedIds = new Set(); // ไว้เก็บ id ที่ผู้ใช้กดแล้ว
-
-// ✅ เพิ่ม: ตรวจว่าผู้ใช้กดครบหรือยัง
-function tryGoToNextSlide(id) {
-  clickedIds.add(id);
-  if ([...requiredIds].every((item) => clickedIds.has(item))) {
-    currentSlide = 2; // ไปสไลด์ที่ 3 (index 2)
-    showSlide(currentSlide);
-  }
-}
-
-async function showSlide(index) {
+function showSlide(index) {
   const slide = slides[index];
   const currentImg = isImg1Active ? img1 : img2;
   const nextImg = isImg1Active ? img2 : img1;
 
+  // ✅ เปลี่ยนภาพ
   nextImg.src = slide.image;
   nextImg.classList.add("active");
   currentImg.classList.remove("active");
   isImg1Active = !isImg1Active;
 
-  container
-    .querySelectorAll(".text-overlay, .overlay, .glow-dot")
-    .forEach((el) => el.remove());
+  // ✅ ล้างข้อความเก่า
+  container.querySelectorAll(".text-overlay").forEach(el => el.remove());
 
+  // ✅ แสดงข้อความทีละอันแบบไม่ซ้อน
   if (slide.texts && slide.texts.length > 0) {
-    for (const { content, delay, position } of slide.texts) {
-      container.querySelectorAll(".text-overlay").forEach((el) => el.remove());
+    console.log("🎯 slide.texts: ", slide.texts);
 
-      const textDiv = document.createElement("div");
-      textDiv.className = "text-overlay";
-      textDiv.innerText = content;
-      textDiv.classList.add(position === "top" ? "text-top" : "text-bottom");
-      container.appendChild(textDiv);
+    let totalDelay = 0;
 
-      await new Promise((resolve) => setTimeout(resolve, delay || 1000));
-      textDiv.style.opacity = 1;
+    slide.texts.forEach(({ content, delay = 1000, position }) => {
+      totalDelay += delay;
 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-    }
-  }
+      console.log("📝 Showing text:", content, "in", totalDelay, "ms at", position);
 
-  if (slide.overlays) {
-    slide.overlays.forEach(
-      ({ id, src, offSrc, top, left, width, offClass }) => {
-        const img = document.createElement("img");
-        img.src = src;
-        img.className = "overlay";
-        img.style.top = top;
-        img.style.left = left;
-        img.style.width = width;
-        img.dataset.id = id;
-        img.dataset.offSrc = offSrc;
-        img.dataset.offClass = offClass;
-        container.appendChild(img);
-      }
-    );
-  }
+      setTimeout(() => {
+        // ✅ ลบข้อความเก่าก่อนแสดงใหม่
+        container.querySelectorAll(".text-overlay").forEach(el => el.remove());
 
-  if (slide.glows) {
-    slide.glows.forEach(({ id, top, left }) => {
-      const dot = document.createElement("div");
-      dot.className = "glow-dot";
-      dot.style.top = top;
-      dot.style.left = left;
-      dot.dataset.target = id;
-
-      dot.addEventListener("click", () => {
-        const overlay = container.querySelector(`.overlay[data-id='${id}']`);
-        if (overlay && overlay.dataset.offSrc) {
-          overlay.src = overlay.dataset.offSrc;
-          if (overlay.dataset.offClass) {
-            overlay.classList.add(overlay.dataset.offClass);
-          }
-        }
-
-        tryGoToNextSlide(id); // ✅ เพิ่ม: เรียกฟังก์ชันตรวจว่ากดครบหรือยัง
-        dot.remove();
-      });
-
-      container.appendChild(dot);
+        const textDiv = document.createElement("div");
+        textDiv.className = "text-overlay";
+        textDiv.innerText = content;
+        textDiv.classList.add(position === "top" ? "text-top" : "text-bottom");
+        container.appendChild(textDiv);
+      }, totalDelay);
     });
-  }
 
-  // ✅ เปลี่ยน slide อัตโนมัติ เฉพาะถ้าไม่ใช่ quiz ที่ต้องรอ
-  if (index !== 1) {
+    // ✅ เปลี่ยนสไลด์หลังข้อความสุดท้าย + buffer
+    const bufferTime = 1500;
     setTimeout(() => {
-      currentSlide++;
-      if (currentSlide < slides.length) {
-        showSlide(currentSlide);
-      }
-    }, slide.duration || 2000);
+      goToNextSlide();
+    }, totalDelay + bufferTime);
+  } else {
+    // ✅ ไม่มีข้อความ → รอ duration แล้วเปลี่ยน
+    setTimeout(() => {
+      goToNextSlide();
+    }, slide.duration || 3000);
+  }
+}
+
+function goToNextSlide() {
+  currentSlide++;
+  if (currentSlide < slides.length) {
+    showSlide(currentSlide);
   }
 }
 
