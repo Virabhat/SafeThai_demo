@@ -2,105 +2,113 @@ const baseUrl = "https://safethai.wyndigitalgroup.com/";
 let globalScore = 0;
 
 const slidesPart1  = [
-  {
-    type: "narration",
-    image: baseUrl + "/assets/images/1.webp",
-    texts: [{ content: "วันนี้อากาศร้อนมาก", delay: 1000, position: "bottom" }],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/2.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/3.webp",
-    texts: [{ content: "เดือนนี้มันร้อนจริง", delay: 2000, position: "top" }],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/4.webp",
-    texts: [{ content: "เปิดแอร์ดีกว่า", delay: 2000, position: "top" }],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/5.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/6.webp",
-    texts: [],
-    duration: 1000
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/7.webp",
-    texts: [],
-    duration: 1000
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/8.webp",
-    texts: [],
-    duration: 1000
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/9.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/10.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/11.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/12.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/13.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/14.webp",
-    texts: [{ content: "ต้องซื้อเเอร์ใหม่เเล้ว", delay: 2000, position: "top" }],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/15.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/16.webp",
-    texts: [],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/17.webp",
-    texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top"}],
-  },
-  {
-    type: "narration",
-    image: baseUrl + "assets/images/18.webp",
-    texts: [],
-  },
+//   {
+//     type: "narration",
+//     image: baseUrl + "/assets/images/1.webp",
+//     texts: [{ content: "วันนี้อากาศร้อนมาก", delay: 1000, position: "bottom" }],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/2.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/3.webp",
+//     texts: [{ content: "เดือนนี้มันร้อนจริง", delay: 2000, position: "top" }],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/4.webp",
+//     texts: [{ content: "เปิดแอร์ดีกว่า", delay: 2000, position: "top" }],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/5.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/6.webp",
+//     texts: [],
+//     duration: 1000
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/7.webp",
+//     texts: [],
+//     duration: 1000
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/8.webp",
+//     texts: [],
+//     duration: 1000
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/9.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/10.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/11.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/12.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/13.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/14.webp",
+//     texts: [{ content: "ต้องซื้อเเอร์ใหม่เเล้ว", delay: 2000, position: "top" }],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/15.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/16.webp",
+//     texts: [],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/17.webp",
+//     texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top"}],
+//   },
+//   {
+//     type: "narration",
+//     image: baseUrl + "assets/images/18.webp",
+//     texts: [],
+//   },
   {
     type: "narration",
     image: baseUrl + "assets/images/19.webp",
     texts: [
-            { content: "เเต่", delay: 2000, position: "bottom" },
-            { content: "คุณลืมอะไรไปหรือเปล่านะ", delay: 2000, position: "bottom" },
+            { content: "เเต่",
+              delay: 2000,
+              position: "bottom", 
+              styleClass: "small-text" 
+            },
+            { content: "คุณลืมอะไรไปหรือเปล่านะ",
+              delay: 2000,
+              position: "bottom",
+              styleClass: "small-text"
+            },
            ],
   },
   {
