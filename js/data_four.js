@@ -1,136 +1,307 @@
 const baseUrl = "https://safethai.wyndigitalgroup.com/";
 let globalScore = 0;
 
-const slidesPart4  = [
+const slidesPart4 = [
   {
+    //0 
+    //65
     type: "narration",
     image: baseUrl + "/assets/images/63.webp",
     texts: [],
   },
   {
-    type: "narration",
+    //1
+    //66
+    type: "question",
     image: baseUrl + "assets/images/64.webp",
-    texts: [],
+    choices: [
+      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 2 },
+      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 4 },
+      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 6 },
+    ],
   },
   {
+    //2
+    //67
+    type: "narration",
+    image: baseUrl + "assets/images/78_1_1.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 3
+  },
+  {
+    //3
+    //68
+    type: "narration",
+    image: baseUrl + "assets/images/78_1_2.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 8
+  },
+  {
+    //4
+    //69
+    type: "narration",
+    image: baseUrl + "assets/images/78_2_1.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 5
+  },
+  {
+    //5
+    //70
+    type: "narration",
+    image: baseUrl + "assets/images/78_2_2.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 8
+  },
+  {
+    //6
+    //71
+    type: "narration",
+    image: baseUrl + "assets/images/78_3_1.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 7
+  },
+  {
+    //7
+    //72
+    type: "narration",
+    image: baseUrl + "assets/images/78_3_2.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 8
+  },
+  {
+    //8
+    //73
     type: "narration",
     image: baseUrl + "assets/images/65.webp",
     texts: [],
   },
   {
+    //9
+    //74
+    type: "narration",
+    image: baseUrl + "assets/images/65_2.webp",
+    texts: [{ content: "เเอร์เย็นสบายดีนะ", delay: 1000, position: "top" }],
+  },
+  {
+    //10
+    //75
     type: "narration",
     image: baseUrl + "assets/images/66.webp",
     texts: [],
   },
   {
+    //11
+    //76
     type: "narration",
     image: baseUrl + "assets/images/67.webp",
     texts: [],
   },
   {
-    type: "narration",
+    //12
+    //77
+    type: "question",
     image: baseUrl + "assets/images/68.webp",
-    texts: [],
-    duration: 1000
+    choices: [
+      { id: "mode_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 13 },
+      { id: "mode_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 14 },
+      { id: "mode_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 15 },
+    ],
   },
   {
+    //13
+    //78
+    type: "narration",
+    image: baseUrl + "assets/images/68_1.webp",
+    texts: [],
+    autoNextTo: 16
+
+  },
+  {
+    //14
+    //79
+    type: "narration",
+    image: baseUrl + "assets/images/68_2.webp",
+    texts: [],
+    autoNextTo: 16
+
+  },
+  {
+    //15
+    //80
+    type: "narration",
+    image: baseUrl + "assets/images/68_3.webp",
+    texts: [],
+    autoNextTo: 16
+
+  },
+  {
+    //16
+    //81
     type: "narration",
     image: baseUrl + "assets/images/69.webp",
     texts: [],
-    duration: 1000
   },
   {
+    //17
+    //82
     type: "narration",
     image: baseUrl + "assets/images/70.webp",
     texts: [],
-    duration: 1000
   },
   {
+    //18
+    //83
     type: "narration",
     image: baseUrl + "assets/images/71.webp",
     texts: [],
   },
   {
+    //19
+    //84
     type: "narration",
     image: baseUrl + "assets/images/72.webp",
     texts: [],
   },
   {
-    type: "narration",
+    //20
+    //85
+    type: "question",
     image: baseUrl + "assets/images/73.webp",
-    texts: [],
+    choices: [
+      { id: "mode_one", label: "รีดผ้าทั้งหมดทันที",nextIndex: 21 },
+      { id: "mode_two", label: "รีดเฉพาะชุดที่จะใส่",nextIndex: 22},
+    ],
   },
   {
+    //21
+    //86
+    type: "narration",
+    image: baseUrl + "assets/images/73_1.webp",
+    texts: [],
+    autoNextTo: 23
+
+  },
+  {
+    //22
+    //87
+    type: "narration",
+    image: baseUrl + "assets/images/73_2.webp",
+    texts: [],
+    autoNextTo: 23
+
+  },
+  {
+    //23
+    //88
     type: "narration",
     image: baseUrl + "assets/images/74.webp",
     texts: [],
   },
   {
+    //24
+    //89
     type: "narration",
     image: baseUrl + "assets/images/75.webp",
     texts: [],
   },
   {
+    //25
+    //90
     type: "narration",
     image: baseUrl + "assets/images/76.webp",
     texts: [],
   },
   {
+    //26
+    //91
     type: "narration",
     image: baseUrl + "assets/images/77.webp",
     texts: [],
   },
   {
+    //27
+    //92
     type: "narration",
     image: baseUrl + "assets/images/78.webp",
     texts: [],
   },
   {
+    //28
+    //93
     type: "narration",
     image: baseUrl + "assets/images/79.webp",
     texts: [],
   },
   {
+    //29
+    //94
     type: "narration",
     image: baseUrl + "assets/images/80.webp",
     texts: [],
   },
   {
+    //30
+    //95
     type: "narration",
     image: baseUrl + "assets/images/81.webp",
     texts: [],
   },
   {
+    //31
+    //96
     type: "narration",
     image: baseUrl + "assets/images/82.webp",
     texts: [],
   },
   {
-    type: "narration",
+    //32
+    //97
+    type: "quiz",
     image: baseUrl + "assets/images/83.webp",
-    texts: [],
+    overlays: [
+    ],
+    glows: [
+      { id: "light", top: "14%", left: "43%" },
+      { id: "iron", top: "62%", left: "21%" }
+    ],
   },
   {
+    //33
+    //98
     type: "narration",
     image: baseUrl + "assets/images/84.webp",
     texts: [],
   },
   {
+    //34
+    //99
     type: "narration",
     image: baseUrl + "assets/images/85.webp",
     texts: [],
   },
   {
+    //35
+    //100
     type: "narration",
     image: baseUrl + "assets/images/86.webp",
     texts: [],
   },
   {
+    //36
+    //101
     type: "narration",
     image: baseUrl + "assets/images/87.webp",
     texts: [],
   },
   {
+    //37
+    //102
     type: "narration",
     image: baseUrl + "assets/images/88.webp",
     texts: [],
@@ -138,10 +309,10 @@ const slidesPart4  = [
 ];
 
 function saveScore(score) {
-//   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-//   const newScore = oldScore + score;
-//   localStorage.setItem("totalScore", newScore.toString());
-//   globalScore = newScore;
+  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
+  //   const newScore = oldScore + score;
+  //   localStorage.setItem("totalScore", newScore.toString());
+  //   globalScore = newScore;
 }
 
 export { slidesPart4, globalScore, saveScore };

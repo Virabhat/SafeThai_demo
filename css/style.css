@@ -49,6 +49,23 @@ html {
   z-index: 1;
 }
 
+#img1, #img2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s ease-in-out;
+  opacity: 0;
+  z-index: 0;
+}
+
+#img1.active, #img2.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+
 .text-overlay {
   position: absolute;
   color: #1E146C;
@@ -78,48 +95,69 @@ html {
   transition: transform 0.3s ease;
 }
 
+/* .glow-dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-image: url('https://safethai.wyndigitalgroup.com/assets/elements/point.png');
+  box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.4);
+  z-index: 4;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+} */
+
+.glow-dot:hover {
+  opacity: 0.5;
+}
+
 .glow-dot {
   position: absolute;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: red;
-  box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.5);
   z-index: 4;
   cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+/* .fade-out {
+  opacity: 0;
+  pointer-events: none;
+} */
+
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-.glow-dot:hover {
-  opacity: 0.5;
-}
 
-.light-off-style {
-  width: 51px !important;
-  top: 6% !important;
-  left: 26% !important;
-}
-
-.tv-off-style {
-  width: 200px !important;
-  top: 42% !important;
-  left: -40% !important;
-}
-
-.fan-off-style {
-  width: 87px !important;
-  top: 54% !important;
-  left: 19% !important;
-}
 
 .small-text {
+  position: absolute;
+  color: #f8f8f8;
+  padding: 10px 16px;
+  border-radius: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; /* 💥 ให้แน่ใจว่าอยู่บนสุด */
+  opacity: 1;
+}
+
+.sceen-text{
   font-size: 16px;
   color: white;
   font-weight: bold;
-  background-color: #666666;  /* สีเทาเข้ม */
-  padding: 6px 12px;
-  border-radius: 6px;
+  background-color: #4746468e;  /* สีเทาเข้ม */
   display: inline-block;
+  padding: 0px 2px;
+  border-radius: 0px;
 }
 
 
@@ -136,9 +174,55 @@ html {
 .time-bar-fill {
   height: 100%;
   width: 0%;
-  background-color: #1E146C;
+  background-color: rgb(52, 235, 100);
   transition: width linear;
 }
+
+.question-container {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+  z-index: 15;
+}
+
+.choice-button {
+  margin: 6px;
+  padding: 12px 18px;
+  background-color: #1e1167;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.ranking-area {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rank-tag {
+  margin: 4px;
+  padding: 6px 12px;
+  background-color: #ccc;
+  color: #000;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.overlay {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 
 
