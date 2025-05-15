@@ -9,7 +9,7 @@ import { slidesPart5 } from "./data_five.js";
 
 
 // ตัวเเปร จ้า 
-const slides = [...slidesPart1];
+const slides = [...slidesPart1 , ...slidesPart2 , ...slidesPart3 , ...slidesPart4];
 
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
@@ -18,7 +18,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 0;
+let currentSlide = 65;
 let isImg1Active = true;
 let quizTimer = null;
 const requiredIds = new Set(["light", "tv", "fan"]);
@@ -51,6 +51,8 @@ function showSlide(index) {
   console.log(`🖼️ Image URL: ${slide.image}`);
   console.log(`⏱️ Duration: ${slide.duration}`);
   console.log(`➡️ Next autoNextTo: ${slide.autoNextTo}`);
+  console.log(`🎯 คะเเนนของคุณ ${score}`);
+
 
   if (slide.texts && slide.texts.length > 0) {
     slide.texts.forEach((text, i) => {
@@ -89,7 +91,7 @@ function showSlide(index) {
 
   if (slide.texts && slide.texts.length > 0) {
     let totalDelay = 0;
-    slide.texts.forEach(({ content, delay = 1000, position, styleClass }) => {
+    slide.texts.forEach(({ content, delay = 2000, position, styleClass }) => {
       totalDelay += delay;
       setTimeout(() => {
         container.querySelectorAll(".text-overlay").forEach(el => el.remove());
@@ -110,18 +112,18 @@ function showSlide(index) {
       } else {
         goToNextSlide();
       }
-    }, totalDelay + 1000);
+    }, totalDelay + 2000);
   } else {
     if (slide.autoNextTo !== undefined) {
       setTimeout(() => {
         console.log(`⏭️ Jumping to autoNextTo: ${slide.autoNextTo}`);
         currentSlide = slide.autoNextTo;
         showSlide(currentSlide);
-      }, slide.duration || 1000);
+      }, slide.duration || 2000);
     } else {
       setTimeout(() => {
         goToNextSlide();
-      }, slide.duration || 1000);
+      }, slide.duration || 4000);
     }
   }
 }
@@ -172,22 +174,69 @@ function renderFormSlide() {
   });
 }
 
+
 function renderQuestion(slide) {
   const wrapper = document.createElement("div");
   wrapper.className = "question-container";
 
-  // ตรวจสอบว่ามี nextIndex อยู่ไหม → เป็น single-choice
   const isSingleChoice = slide.choices.every(choice => typeof choice.nextIndex === "number");
 
   if (isSingleChoice) {
-    // ✅ แบบเลือก 1 ข้อ
+    // ✅ แบบเลือก 1 ข้อ พร้อมให้คะแนน
     slide.choices.forEach(({ id, label, nextIndex }) => {
       const btn = document.createElement("button");
       btn.className = "choice-button";
       btn.textContent = label;
 
       btn.addEventListener("click", () => {
-        console.log(`✅ เลือก: ${label} → ไปสไลด์ที่ ${nextIndex}`);
+        // ✅ เงื่อนไขให้คะแนนของแต่ละกรณี
+        if (id === "light_one") {
+          score -= 10;
+          console.log("❌ เลือก 'หลอดไส้' → -10 คะแนน");
+        } else if (id === "light_two") {
+          score -= 5;
+          console.log("⚠️ เลือก 'ฟลูออเรสเซนต์' → -5 คะแนน");
+        } else if (id === "light_three") {
+          score += 15;
+          console.log("✅ เลือก 'LED' → +15 คะแนน");
+        } else if (id === "home") {
+          score -= 5;
+          console.log("🏠 สั่งกลับบ้าน → -5 คะแนน");
+        } else if (id === "here") {
+          score -= 10;
+          console.log("🍽️ กินที่นี่ → -10 คะแนน");
+        } else if (id === "mode_one"){
+          score -= 10;
+          console.log(" ออกไปเเปปเดียวไม่เป็นอะไร → -10 คะแนน");
+        } else if (id === "mode_two"){
+          score -= 4;
+          console.log(" กด sleep mode → -4 คะแนน");
+        } else if (id === "mode_three"){
+          score += 10;
+          console.log("ปิดคอมเลยดีกว่า + 10");
+        } else if (id === "air_one"){
+          score += 8;
+          console.log("ปิดเเอร์เลยดีกว่า + 8");
+        } else if (id === "air_two"){
+          score += 0; 
+          console.log("เปลี่ยนเป็น 20 องศา 0 คะเเนน");
+        } else if (id === "air_three"){
+          score -= 5;
+          console.log("เอาไว้เเบบนี้เเหละ - 5 คะเเนน");
+        } else if (id === "iron_one"){
+          score += 5;
+          console.log("รีดผ้าทั้งหมดทันที + 5 คะเเนน");
+        } else if (id === "iron_two"){
+          score -= 5; 
+          console.log("รีดเฉพาะชุดที่จะใส่ - 5 คะเเนนน");
+        }
+
+        // ✅ อัปเดตคะแนนบนจอ
+        const scoreEl = document.getElementById("scoreDisplay");
+        if (scoreEl) {
+          scoreEl.innerText = `คะแนน: ${score}`;
+        }
+
         currentSlide = nextIndex;
         showSlide(currentSlide);
       });
@@ -196,7 +245,7 @@ function renderQuestion(slide) {
     });
 
   } else {
-    // ✅ แบบเลือกได้ 4 ข้อ
+    // ✅ แบบเลือกได้หลายข้อ + ให้คะแนนจากลำดับแรก
     const selectedChoices = [];
     const selectedDisplay = document.createElement("div");
     selectedDisplay.style.marginTop = "12px";
@@ -217,6 +266,22 @@ function renderQuestion(slide) {
         btn.disabled = true;
         btn.style.opacity = 0.6;
 
+        // ✅ ให้คะแนนตามตัวเลือกแรกเท่านั้น
+        if (selectedChoices.length === 1) {
+          if (id === "efficiency") {
+            score += 5;
+            console.log("✅ ได้ 5 คะแนนจาก 'ฉลากเบอร์ 5'");
+          } else if (id === "btu") {
+            score += 10;
+            console.log("✅ ได้ 10 คะแนนจาก 'BTU แอร์'");
+          }
+
+          const scoreEl = document.getElementById("scoreDisplay");
+          if (scoreEl) {
+            scoreEl.innerText = `คะแนน: ${score}`;
+          }
+        }
+
         selectedDisplay.innerText =
           selectedChoices.map((choice, i) => `${i + 1}. ${choice}`).join("\n");
 
@@ -234,6 +299,9 @@ function renderQuestion(slide) {
 
   container.appendChild(wrapper);
 }
+
+
+
 
 
 
@@ -265,6 +333,7 @@ function setupQuizInteractions(slide) {
     dot.addEventListener("click", () => {
       const overlay = container.querySelector(`.overlay[data-id='${id}']`);
 
+     
       if (overlay && overlay.dataset.offClass) {
         // ✅ ถ้ามี overlay → ปิด overlay โดยเพิ่มคลาส
         overlay.classList.add(overlay.dataset.offClass);
@@ -278,9 +347,16 @@ function setupQuizInteractions(slide) {
       // ✅ ถ้ากดครบทั้งหมด
       if (clickedIds.size === (slide.glows?.length || 0)) {
         goToNextSlide();
+        tryGoToNextSlide(id);
+
       }
 
       dot.remove(); // เอาจุดออกหลังจากกด
+
+      score += 10; // ✅ เพิ่มคะแนนจุดละ 10
+      console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
+
+
     });
 
     container.appendChild(dot);
@@ -322,13 +398,6 @@ function tryGoToNextSlide(id) {
     clickedIds.add(id);
     score += 10; // ✅ เพิ่มคะแนนจุดละ 10
     console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
-  }
-
-  // เมื่อปิดครบทุกอุปกรณ์
-  if ([...requiredIds].every(item => clickedIds.has(item))) {
-    clearTimeout(quizTimer);
-    quizTimer = null;
-    goToNextSlide();
   }
 }
 

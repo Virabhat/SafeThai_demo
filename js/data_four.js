@@ -15,9 +15,9 @@ const slidesPart4 = [
     type: "question",
     image: baseUrl + "assets/images/64.webp",
     choices: [
-      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 2 },
-      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 4 },
-      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 6 },
+      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 67 },
+      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 69 },
+      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 71 },
     ],
   },
   {
@@ -27,7 +27,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_1_1.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 3
+    autoNextTo: 68
   },
   {
     //3
@@ -36,7 +36,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_1_2.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 8
+    autoNextTo: 73
   },
   {
     //4
@@ -45,7 +45,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_2_1.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 5
+    autoNextTo: 70
   },
   {
     //5
@@ -54,7 +54,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_2_2.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 8
+    autoNextTo: 73
   },
   {
     //6
@@ -63,7 +63,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_3_1.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 7
+    autoNextTo: 72
   },
   {
     //7
@@ -72,7 +72,7 @@ const slidesPart4 = [
     image: baseUrl + "assets/images/78_3_2.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 8
+    autoNextTo: 73
   },
   {
     //8
@@ -108,9 +108,9 @@ const slidesPart4 = [
     type: "question",
     image: baseUrl + "assets/images/68.webp",
     choices: [
-      { id: "mode_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 13 },
-      { id: "mode_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 14 },
-      { id: "mode_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 15 },
+      { id: "air_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 78 },
+      { id: "air_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 79 },
+      { id: "air_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 80 },
     ],
   },
   {
@@ -119,7 +119,7 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/68_1.webp",
     texts: [],
-    autoNextTo: 16
+    autoNextTo: 81
 
   },
   {
@@ -128,7 +128,7 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/68_2.webp",
     texts: [],
-    autoNextTo: 16
+    autoNextTo: 81
 
   },
   {
@@ -137,7 +137,7 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/68_3.webp",
     texts: [],
-    autoNextTo: 16
+    autoNextTo: 81
 
   },
   {
@@ -174,8 +174,8 @@ const slidesPart4 = [
     type: "question",
     image: baseUrl + "assets/images/73.webp",
     choices: [
-      { id: "mode_one", label: "รีดผ้าทั้งหมดทันที",nextIndex: 21 },
-      { id: "mode_two", label: "รีดเฉพาะชุดที่จะใส่",nextIndex: 22},
+      { id: "iron_one", label: "รีดผ้าทั้งหมดทันที",nextIndex: 86 },
+      { id: "iron_two", label: "รีดเฉพาะชุดที่จะใส่",nextIndex: 87},
     ],
   },
   {
@@ -184,7 +184,7 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/73_1.webp",
     texts: [],
-    autoNextTo: 23
+    autoNextTo: 88
 
   },
   {
@@ -193,7 +193,7 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/73_2.webp",
     texts: [],
-    autoNextTo: 23
+    autoNextTo: 88
 
   },
   {

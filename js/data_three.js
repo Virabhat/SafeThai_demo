@@ -8,8 +8,8 @@ const slidesPart3  = [
     type: "question",
     image: baseUrl + "/assets/images/46.webp",
     choices: [
-      { id: "home", label: "สั่งกลับบ้าน", nextIndex: 3 },
-      { id: "here", label: "กินที่นี้", nextIndex: 1 },
+      { id: "home", label: "สั่งกลับบ้าน", nextIndex: 51 },
+      { id: "here", label: "กินที่นี้", nextIndex: 49 },
     ],
   },
   {
