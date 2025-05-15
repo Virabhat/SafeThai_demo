@@ -1,88 +1,248 @@
+// ไฟล์ import จาก เเต่ละหน้า 
 import { slidesPart1 } from "./data_one.js";
 import { slidesPart2 } from "./data_two.js";
+import { slidesPart3 } from "./data_three.js";
+import { slidesPart4 } from "./data_four.js";
+import { slidesPart5 } from "./data_five.js";
 
-// รวม slides ทั้งหมด
-const slides = [...slidesPart1, ...slidesPart2];
+// ปิดเฉยๆ จ้า //
+
+
+// ตัวเเปร จ้า 
+const slides = [...slidesPart1];
 
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
+
+let score = 0;
+
 
 let currentSlide = 0;
 let isImg1Active = true;
 let quizTimer = null;
 const requiredIds = new Set(["light", "tv", "fan"]);
 let clickedIds = new Set();
+// ปิด ตัวเเปร //
 
 function showSlide(index) {
-  // ล้าง element เดิม
-  container.querySelectorAll(".text-overlay, .overlay, .glow-dot, .time-bar-container").forEach(el => el.remove());
-  if (quizTimer) {
-    clearTimeout(quizTimer);
-    quizTimer = null;
+  const slide = slides[index];
+  if (!slide) {
+    console.error("❌ ไม่พบ slide ที่ index =", index);
+    return;
   }
 
-  const slide = slides[index];
+  container.querySelectorAll(
+    ".text-overlay, .overlay, .glow-dot, .time-bar-container, .question-container, .intro-overlay, .form-slide"
+  ).forEach(el => el.remove());
+
+  clearTimeout(quizTimer);
+  quizTimer = null;
+
   const currentImg = isImg1Active ? img1 : img2;
   const nextImg = isImg1Active ? img2 : img1;
 
-  console.log(`📸 Slide ${index + 1}/${slides.length}`);
-  console.log("🖼️ Image:", slide.image);
-
-  // เปลี่ยนภาพ
   nextImg.src = slide.image;
   nextImg.classList.add("active");
   currentImg.classList.remove("active");
   isImg1Active = !isImg1Active;
 
-  // ล้างข้อความ
-  container.querySelectorAll(".text-overlay").forEach(el => el.remove());
+  console.log(`📸 Slide ${index}: ${slide.type}`);
+  console.log(`🖼️ Image URL: ${slide.image}`);
+  console.log(`⏱️ Duration: ${slide.duration}`);
+  console.log(`➡️ Next autoNextTo: ${slide.autoNextTo}`);
 
-  // แสดงข้อความแบบ delay
+  if (slide.texts && slide.texts.length > 0) {
+    slide.texts.forEach((text, i) => {
+      console.log(`🗨️ Text[${i}]: "${text.content}" (delay: ${text.delay || 1000}ms)`);
+    });
+  }
+
+  if (slide.type === "form") {
+    renderFormSlide();
+    return;
+  }
+
+  if (slide.type === "intro" && slide.waitForClick) {
+    const overlay = document.createElement("div");
+    overlay.className = "intro-overlay";
+    overlay.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer;z-index:99";
+    overlay.addEventListener("click", () => {
+      overlay.remove();
+      goToNextSlide();
+    });
+    container.appendChild(overlay);
+    return;
+  }
+
+  if (slide.type === "question") {
+    renderQuestion(slide);
+    return;
+  }
+
+  if (slide.type === "quiz") {
+    clickedIds = new Set();
+    setupQuizInteractions(slide);
+    startQuizTimer(slide, 5000);
+    return;
+  }
+
   if (slide.texts && slide.texts.length > 0) {
     let totalDelay = 0;
-
     slide.texts.forEach(({ content, delay = 1000, position, styleClass }) => {
       totalDelay += delay;
-
       setTimeout(() => {
         container.querySelectorAll(".text-overlay").forEach(el => el.remove());
-
         const textDiv = document.createElement("div");
         textDiv.className = "text-overlay";
         textDiv.innerText = content;
-
         textDiv.classList.add(position === "top" ? "text-top" : "text-bottom");
         if (styleClass) textDiv.classList.add(styleClass);
-
         container.appendChild(textDiv);
       }, totalDelay);
     });
 
-    // ไปต่อเฉพาะ non-quiz
-    if (slide.type !== "quiz") {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (slide.autoNextTo !== undefined) {
+        console.log(`⏭️ Jumping to autoNextTo: ${slide.autoNextTo}`);
+        currentSlide = slide.autoNextTo;
+        showSlide(currentSlide);
+      } else {
         goToNextSlide();
-      }, totalDelay + 1500);
-    }
+      }
+    }, totalDelay + 1000);
   } else {
-    if (slide.type !== "quiz") {
+    if (slide.autoNextTo !== undefined) {
+      setTimeout(() => {
+        console.log(`⏭️ Jumping to autoNextTo: ${slide.autoNextTo}`);
+        currentSlide = slide.autoNextTo;
+        showSlide(currentSlide);
+      }, slide.duration || 1000);
+    } else {
       setTimeout(() => {
         goToNextSlide();
-      }, slide.duration || 3000);
+      }, slide.duration || 1000);
     }
-  }
-
-  // ถ้าเป็น quiz
-  if (slide.type === "quiz") {
-    clickedIds = new Set();
-    setupQuizInteractions(slide);
-    startQuizTimer(5000);
   }
 }
 
+
+function renderFormSlide() {
+  const formWrapper = document.createElement("div");
+  formWrapper.className = "form-slide";
+  formWrapper.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;z-index:100";
+
+  formWrapper.innerHTML = `
+    <div style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      text-align: center;
+    ">
+      <div style="margin-bottom: 20px;">
+        <label for="userName" style="font-weight: bold;">ชื่อของคุณ:</label><br/>
+        <input id="userName" type="text" placeholder="กรอกชื่อ" style="margin-top: 6px; padding: 8px; width: 220px;" />
+      </div>
+
+      <button id="submitFormBtn" style="
+        padding: 10px 24px;
+        background-color: #1976d2;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      ">ถัดไป</button>
+    </div>
+  `;
+
+  container.appendChild(formWrapper);
+
+  document.getElementById("submitFormBtn").addEventListener("click", () => {
+    const name = document.getElementById("userName").value.trim();
+    if (!name) return alert("กรุณากรอกชื่อของคุณ");
+    localStorage.setItem("userName", name);
+    formWrapper.remove();
+    goToNextSlide();
+  });
+}
+
+function renderQuestion(slide) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "question-container";
+
+  // ตรวจสอบว่ามี nextIndex อยู่ไหม → เป็น single-choice
+  const isSingleChoice = slide.choices.every(choice => typeof choice.nextIndex === "number");
+
+  if (isSingleChoice) {
+    // ✅ แบบเลือก 1 ข้อ
+    slide.choices.forEach(({ id, label, nextIndex }) => {
+      const btn = document.createElement("button");
+      btn.className = "choice-button";
+      btn.textContent = label;
+
+      btn.addEventListener("click", () => {
+        console.log(`✅ เลือก: ${label} → ไปสไลด์ที่ ${nextIndex}`);
+        currentSlide = nextIndex;
+        showSlide(currentSlide);
+      });
+
+      wrapper.appendChild(btn);
+    });
+
+  } else {
+    // ✅ แบบเลือกได้ 4 ข้อ
+    const selectedChoices = [];
+    const selectedDisplay = document.createElement("div");
+    selectedDisplay.style.marginTop = "12px";
+    selectedDisplay.style.color = "#000";
+    selectedDisplay.style.fontSize = "16px";
+    selectedDisplay.innerText = "เลือกได้สูงสุด 4 ตัวเลือก";
+
+    slide.choices.forEach(({ id, label }) => {
+      const btn = document.createElement("button");
+      btn.className = "choice-button";
+      btn.textContent = label;
+
+      btn.addEventListener("click", () => {
+        if (selectedChoices.includes(label)) return;
+        if (selectedChoices.length >= 4) return;
+
+        selectedChoices.push(label);
+        btn.disabled = true;
+        btn.style.opacity = 0.6;
+
+        selectedDisplay.innerText =
+          selectedChoices.map((choice, i) => `${i + 1}. ${choice}`).join("\n");
+
+        if (selectedChoices.length === 4) {
+          localStorage.setItem("selectedAnswers", JSON.stringify(selectedChoices));
+          setTimeout(goToNextSlide, 800);
+        }
+      });
+
+      wrapper.appendChild(btn);
+    });
+
+    wrapper.appendChild(selectedDisplay);
+  }
+
+  container.appendChild(wrapper);
+}
+
+
+
+
 function setupQuizInteractions(slide) {
-  slide.overlays?.forEach(({ id, src, offSrc, top, left, width, offClass }) => {
+  clickedIds = new Set();
+
+  // ✅ แสดง overlay ถ้ามี
+  slide.overlays?.forEach(({ id, src, top, left, width, offClass }) => {
     const img = document.createElement("img");
     img.src = src;
     img.className = "overlay";
@@ -90,11 +250,11 @@ function setupQuizInteractions(slide) {
     img.style.left = left;
     img.style.width = width;
     img.dataset.id = id;
-    img.dataset.offSrc = offSrc;
     img.dataset.offClass = offClass;
     container.appendChild(img);
   });
 
+  // ✅ แสดงจุดแดง glow-dot
   slide.glows?.forEach(({ id, top, left }) => {
     const dot = document.createElement("div");
     dot.className = "glow-dot";
@@ -104,36 +264,82 @@ function setupQuizInteractions(slide) {
 
     dot.addEventListener("click", () => {
       const overlay = container.querySelector(`.overlay[data-id='${id}']`);
-      if (overlay) {
-        if (overlay.dataset.offSrc) overlay.src = overlay.dataset.offSrc;
-        if (overlay.dataset.offClass) overlay.classList.add(overlay.dataset.offClass);
+
+      if (overlay && overlay.dataset.offClass) {
+        // ✅ ถ้ามี overlay → ปิด overlay โดยเพิ่มคลาส
+        overlay.classList.add(overlay.dataset.offClass);
+      } else {
+        // ✅ ถ้าไม่มี overlay → แค่ fade-out จุดแดง
+        dot.classList.add("fade-out");
       }
 
-      tryGoToNextSlide(id);
-      dot.remove();
+      clickedIds.add(id);
+
+      // ✅ ถ้ากดครบทั้งหมด
+      if (clickedIds.size === (slide.glows?.length || 0)) {
+        goToNextSlide();
+      }
+
+      dot.remove(); // เอาจุดออกหลังจากกด
     });
 
     container.appendChild(dot);
   });
+
+  // ✅ ตั้งเวลาเผื่อผู้ใช้ไม่กด → ข้ามสไลด์ได้
+  startSimpleTimer(slide, slide.duration || 5000);
 }
 
-function tryGoToNextSlide(id) {
-  clickedIds.add(id);
-  if ([...requiredIds].every(item => clickedIds.has(item))) {
-    if (quizTimer) {
-      clearTimeout(quizTimer);
-      quizTimer = null;
+function startSimpleTimer(slide, duration) {
+  setTimeout(() => {
+    if (clickedIds.size < (slide.glows?.length || 0)) {
+      console.log("⏰ หมดเวลา ยังไม่กดครบ → ไป failNextTo");
+
+      if (slide.failNextTo !== undefined) {
+        currentSlide = slide.failNextTo;
+        showSlide(currentSlide);
+        return;
+      }
     }
+
+    goToNextSlide();
+  }, duration);
+}
+
+
+
+// function tryGoToNextSlide(id) {
+//   clickedIds.add(id);
+//   if ([...requiredIds].every(item => clickedIds.has(item))) {
+//     clearTimeout(quizTimer);
+//     quizTimer = null;
+//     goToNextSlide();
+//   }
+// }
+
+function tryGoToNextSlide(id) {
+  if (!clickedIds.has(id)) {
+    clickedIds.add(id);
+    score += 10; // ✅ เพิ่มคะแนนจุดละ 10
+    console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
+  }
+
+  // เมื่อปิดครบทุกอุปกรณ์
+  if ([...requiredIds].every(item => clickedIds.has(item))) {
+    clearTimeout(quizTimer);
+    quizTimer = null;
     goToNextSlide();
   }
 }
 
-function startQuizTimer(duration) {
+
+
+function startQuizTimer(slide, duration) {
+
   container.querySelectorAll(".time-bar-container").forEach(el => el.remove());
 
   const barContainer = document.createElement("div");
   barContainer.className = "time-bar-container";
-
   const barFill = document.createElement("div");
   barFill.className = "time-bar-fill";
 
@@ -143,14 +349,14 @@ function startQuizTimer(duration) {
   setTimeout(() => {
     barFill.style.transition = `width ${duration}ms linear`;
     barFill.style.width = "100%";
-  }, 50);
+  }, 80);
+
 
   quizTimer = setTimeout(() => {
-    if ([...requiredIds].every(item => clickedIds.has(item))) {
+    if ([...requiredIds].every(id => clickedIds.has(id))) {
       goToNextSlide();
     } else {
-      console.log("⛔ Quiz failed: skip to slide 21");
-      currentSlide = 3; // ไป index 20 = slide ที่ 21
+      currentSlide = slide.failNextTo ?? currentSlide;
       showSlide(currentSlide);
     }
   }, duration);
