@@ -9,7 +9,26 @@ import { slidesPart5 } from "./data_five.js";
 
 
 // ตัวเเปร จ้า 
-const slides = [...slidesPart1 , ...slidesPart2 , ...slidesPart3 , ...slidesPart4];
+const slides = [...slidesPart1, ...slidesPart2, ...slidesPart3, ...slidesPart4, ...slidesPart5];
+
+// แมปคะแนนตามอุณหภูมิ
+const tempScores = {
+  "16": 1,
+  "17": 2,
+  "18": 3,
+  "19": 4,
+  "20": 5,
+  "21": 6,
+  "22": 7,
+  "23": 8,
+  "24": 9,
+  "25": 10,
+  "26": 10,
+  "27": 9,
+  "28": 8,
+  "29": 7
+};
+
 
 const container = document.getElementById("slideContainer");
 const img1 = document.getElementById("img1");
@@ -18,9 +37,11 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 65;
+let currentSlide = 25;
 let isImg1Active = true;
 let quizTimer = null;
+let isFinished = false;
+
 const requiredIds = new Set(["light", "tv", "fan"]);
 let clickedIds = new Set();
 // ปิด ตัวเเปร //
@@ -130,10 +151,39 @@ function showSlide(index) {
 
 
 function renderFormSlide() {
+  const slide = slides[currentSlide]; // ดึงข้อมูล slide ปัจจุบัน
   const formWrapper = document.createElement("div");
   formWrapper.className = "form-slide";
   formWrapper.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;z-index:100";
 
+  let formContent = "";
+
+  // ✅ เงื่อนไข: ฟอร์มเลือกอุณหภูมิ
+  if (slide.formType === "temperature") {
+    const options = Array.from({ length: 14 }, (_, i) => 16 + i)
+      .map(temp => `<option value="${temp}">${temp}°C</option>`)
+      .join("");
+
+    formContent = `
+      <div style="margin-bottom: 20px;">
+        <label for="tempSelect" style="font-weight: bold;">เลือกอุณหภูมิแอร์:</label><br/>
+        <select id="tempSelect" style="margin-top: 8px; padding: 8px; width: 200px;">
+          ${options}
+        </select>
+      </div>
+    `;
+  } 
+  // ✅ default → ฟอร์มชื่อ
+  else {
+    formContent = `
+      <div style="margin-bottom: 20px;">
+        <label for="userName" style="font-weight: bold;">ชื่อของคุณ:</label><br/>
+        <input id="userName" type="text" placeholder="กรอกชื่อ" style="margin-top: 6px; padding: 8px; width: 220px;" />
+      </div>
+    `;
+  }
+
+  // ✅ รวมฟอร์ม + ปุ่ม
   formWrapper.innerHTML = `
     <div style="
       position: absolute;
@@ -146,11 +196,7 @@ function renderFormSlide() {
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
       text-align: center;
     ">
-      <div style="margin-bottom: 20px;">
-        <label for="userName" style="font-weight: bold;">ชื่อของคุณ:</label><br/>
-        <input id="userName" type="text" placeholder="กรอกชื่อ" style="margin-top: 6px; padding: 8px; width: 220px;" />
-      </div>
-
+      ${formContent}
       <button id="submitFormBtn" style="
         padding: 10px 24px;
         background-color: #1976d2;
@@ -166,13 +212,28 @@ function renderFormSlide() {
   container.appendChild(formWrapper);
 
   document.getElementById("submitFormBtn").addEventListener("click", () => {
-    const name = document.getElementById("userName").value.trim();
-    if (!name) return alert("กรุณากรอกชื่อของคุณ");
-    localStorage.setItem("userName", name);
-    formWrapper.remove();
-    goToNextSlide();
-  });
+  if (slide.formType === "temperature") {
+    const temp = document.getElementById("tempSelect").value;
+    localStorage.setItem("selectedTemp", temp);
+    console.log(`🌡️ เลือกอุณหภูมิ: ${temp}°C`);
+
+    const tempScore = tempScores[temp] ?? 0; // ถ้าไม่มีใน object จะได้ 0 คะแนน
+    score += tempScore;
+
+    if (tempScore > 0) {
+      console.log(`✅ ได้ ${tempScore} คะแนนจากอุณหภูมิ ${temp}°C`);
+    } else if (tempScore < 0) {
+      console.log(`⚠️ เสีย ${Math.abs(tempScore)} คะแนนจากอุณหภูมิ ${temp}°C`);
+    } else {
+      console.log("ℹ️ 0 คะแนน อุณหภูมิปานกลาง");
+    }
+  } 
+  formWrapper.remove();
+  goToNextSlide();
+});
+
 }
+
 
 
 function renderQuestion(slide) {
@@ -228,7 +289,25 @@ function renderQuestion(slide) {
           console.log("รีดผ้าทั้งหมดทันที + 5 คะเเนน");
         } else if (id === "iron_two"){
           score -= 5; 
-          console.log("รีดเฉพาะชุดที่จะใส่ - 5 คะเเนนน");
+          console.log("รีดเฉพาะชุดที่จะใส่ - 5 คะเเนน");
+        } else if (id === "type_one"){
+          score -= 8;
+          console.log("ชาร์จโปรศัทพ์ทิ้งไว้ - 8 คะเเนน")
+        } else if (id === "type_two"){
+          score += 0;
+          console.log("ค่อยชาร์จพรุ่งนี้ 0 คะเเนน")
+        } else if (id === "zero"){
+          score -= 5;
+          console.log("เบอร์ 0 - 5 คะเเนน");
+        } else if (id === "one"){
+          score += 10; 
+          console.log('เบอร์ 1 + 10 คะเเนน');
+        } else if (id === "two"){
+          score += 8;
+          console.log('เบอร์ 2 + 8 คะเเนน');
+        } else if (id === "three"){
+          score += 5;
+          console.log('เบอร์ 3 + 5 คะเเนน');
         }
 
         // ✅ อัปเดตคะแนนบนจอ
@@ -431,13 +510,60 @@ function startQuizTimer(slide, duration) {
   }, duration);
 }
 
+// function goToNextSlide() {
+//   currentSlide++;
+//   if (currentSlide < slides.length) {
+//     showSlide(currentSlide);
+//   } else {
+//     console.log("✅ All slides completed");
+//   }
+// }
+
 function goToNextSlide() {
+  if (isFinished) {
+    console.log("⛔ การแสดงผลหยุดลงแล้ว");
+    return; // หยุด ไม่ให้ไปต่อ
+  }
+
   currentSlide++;
+
+  if (currentSlide === 134) {
+    jumpByScore();
+    return;
+  }
+
   if (currentSlide < slides.length) {
     showSlide(currentSlide);
   } else {
     console.log("✅ All slides completed");
   }
 }
+
+
+function jumpByScore() {
+  let targetSlide = null;
+
+  if (score >= -20 && score <= 20) {
+    targetSlide = 134;
+  } else if (score >= 21 && score <= 40) {
+    targetSlide = 135;
+  } else if (score >= 41 && score <= 60) {
+    targetSlide = 136;
+  } else if (score >= 61 && score <= 80) {
+    targetSlide = 137;
+  } else if (score >= 81 && score <= 100) {
+    targetSlide = 138;
+  }
+
+  if (targetSlide !== null) {
+    currentSlide = targetSlide;
+    isFinished = true; // ✅ หยุด slide ที่หน้า score summary
+    showSlide(currentSlide);
+  } else {
+    console.log("❗ ไม่พบช่วงคะแนนที่ตรง");
+  }
+}
+
+
 
 showSlide(currentSlide);

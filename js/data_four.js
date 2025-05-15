@@ -209,6 +209,8 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/75.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //25
@@ -216,6 +218,8 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/76.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //26
@@ -223,6 +227,8 @@ const slidesPart4 = [
     type: "narration",
     image: baseUrl + "assets/images/77.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //27

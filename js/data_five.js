@@ -1,7 +1,7 @@
 const baseUrl = "https://safethai.wyndigitalgroup.com/";
 let globalScore = 0;
 
-const slidesPart5  = [
+const slidesPart5 = [
   {
     //0
     //103
@@ -81,8 +81,8 @@ const slidesPart5  = [
     type: "question",
     image: baseUrl + "assets/images/99.webp",
     choices: [
-      { id: "type_one", label: "ชาร์จโปรศัทพ์ทิ้งไว้", nextIndex: 11 },
-      { id: "type_two", label: "ค่อยชาร์จพรุ่งนี้",  nextIndex: 12 },
+      { id: "type_one", label: "ชาร์จโปรศัทพ์ทิ้งไว้", nextIndex: 114 },
+      { id: "type_two", label: "ค่อยชาร์จพรุ่งนี้", nextIndex: 115 },
     ],
   },
   {
@@ -91,7 +91,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/99_1.webp",
     texts: [],
-    autoNextTo: 13
+    autoNextTo: 116
 
   },
   {
@@ -100,7 +100,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/99_2.webp",
     texts: [],
-    autoNextTo: 13
+    autoNextTo: 116
 
   },
   {
@@ -120,9 +120,9 @@ const slidesPart5  = [
   {
     //15
     //118
-    type: "narration",
+    type: "form",
     image: baseUrl + "assets/images/102.webp",
-    texts: [],
+    formType: "temperature",
   },
   {
     //16
@@ -158,12 +158,12 @@ const slidesPart5  = [
     type: "question",
     image: baseUrl + "assets/images/107.webp",
     choices: [
-      { id: "zero", label: "เบอร์ 0", nextIndex: 21 },
-      { id: "one", label: "เบอร์ 1",  nextIndex: 22 },
-      { id: "two", label: "เบอร์ 2",  nextIndex: 23 },
-      { id: "three", label: "เบอร์ 3",  nextIndex: 24 },
+      { id: "zero", label: "เบอร์ 0", nextIndex: 124 },
+      { id: "one", label: "เบอร์ 1", nextIndex: 125 },
+      { id: "two", label: "เบอร์ 2", nextIndex: 126 },
+      { id: "three", label: "เบอร์ 3", nextIndex: 127 },
     ],
-    
+
   },
   {
     //21
@@ -171,7 +171,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/107_0.webp",
     texts: [],
-    autoNextTo: 25
+    autoNextTo: 128
 
   },
   {
@@ -180,7 +180,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/107_1.webp",
     texts: [],
-    autoNextTo: 25
+    autoNextTo: 128
 
   },
   {
@@ -189,7 +189,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/107_2.webp",
     texts: [],
-    autoNextTo: 25
+    autoNextTo: 128
 
   },
   {
@@ -198,7 +198,7 @@ const slidesPart5  = [
     type: "narration",
     image: baseUrl + "assets/images/107_3.webp",
     texts: [],
-    autoNextTo: 25
+    autoNextTo: 128
 
   },
   {
@@ -281,10 +281,10 @@ const slidesPart5  = [
 ];
 
 function saveScore(score) {
-//   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-//   const newScore = oldScore + score;
-//   localStorage.setItem("totalScore", newScore.toString());
-//   globalScore = newScore;
+  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
+  //   const newScore = oldScore + score;
+  //   localStorage.setItem("totalScore", newScore.toString());
+  //   globalScore = newScore;
 }
 
 export { slidesPart5, globalScore, saveScore };
