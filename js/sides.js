@@ -36,7 +36,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 127;
+let currentSlide = 122;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
