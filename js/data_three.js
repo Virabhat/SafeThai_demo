@@ -38,7 +38,7 @@ const slidesPart3  = [
     //52
     type: "narration",
     image: baseUrl + "assets/images/50.webp",
-    texts: [],
+    texts: [{ content: "คุณนัดช่างเเอร์ มาติดตั้งเเอร์วันนี้", delay: 2000, position: "top" }],
   },
   {
     //5
@@ -53,7 +53,7 @@ const slidesPart3  = [
     //54
     type: "narration",
     image: baseUrl + "assets/images/52.webp",
-    texts: [],
+    texts: [{ content: "ใช้เวลาติดตั้ง 2-3 ชั่วโมงนะครับ", delay: 2000, position: "top" }],
     duration: 1000
   },
   {
@@ -69,7 +69,7 @@ const slidesPart3  = [
     //56
     type: "narration",
     image: baseUrl + "assets/images/54.webp",
-    texts: [],
+    texts: [{ content: "นั่งทำงานรอดีกว่า", delay: 2000, position: "top" }],
   },
   {
     //9
@@ -123,11 +123,5 @@ const slidesPart3  = [
   },
 ];
 
-function saveScore(score) {
-//   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-//   const newScore = oldScore + score;
-//   localStorage.setItem("totalScore", newScore.toString());
-//   globalScore = newScore;
-}
 
-export { slidesPart3, globalScore, saveScore };
+export { slidesPart3 };

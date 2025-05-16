@@ -36,7 +36,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 28;
+let currentSlide = 127;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -51,6 +51,9 @@ function showSlide(index) {
     console.error("❌ ไม่พบ slide ที่ index =", index);
     return;
   }
+
+  // ซ่อน swiper ถ้าเคยแสดง
+  document.getElementById("swiperContainer").style.display = "none";
 
   container.querySelectorAll(
     ".text-overlay, .overlay, .glow-dot, .time-bar-container, .question-container, .intro-overlay, .form-slide"
@@ -204,10 +207,8 @@ function renderFormSlide() {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.95);
     padding: 32px 24px;
     border-radius: 16px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     text-align: center;
     font-family: 'Mitr', Arial, sans-serif;
   ">
@@ -536,6 +537,7 @@ function jumpByScore() {
     console.log("❗ ไม่พบช่วงคะแนนที่ตรง");
   }
 }
+
 
 
 

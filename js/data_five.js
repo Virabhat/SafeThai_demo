@@ -42,7 +42,7 @@ const slidesPart5 = [
     //108
     type: "narration",
     image: baseUrl + "assets/images/94.webp",
-    texts: [],
+    texts: [{ content: "เริ่มง่วงนอนเเล้ว", delay: 2000, position: "top" }],
     duration: 1000
   },
   {
@@ -213,7 +213,7 @@ const slidesPart5 = [
     //129
     type: "narration",
     image: baseUrl + "assets/images/109.webp",
-    texts: [],
+    texts: [{ content: "อากาศเย็นทำให้คุณง่วงมากขึ้นทุกที ในที่สุดคุณก็เคลิ้มหลับไป", delay: 2000, position: "top" }],
   },
   {
     //27
@@ -280,11 +280,4 @@ const slidesPart5 = [
   },
 ];
 
-function saveScore(score) {
-  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-  //   const newScore = oldScore + score;
-  //   localStorage.setItem("totalScore", newScore.toString());
-  //   globalScore = newScore;
-}
-
-export { slidesPart5, globalScore, saveScore };
+export { slidesPart5 };

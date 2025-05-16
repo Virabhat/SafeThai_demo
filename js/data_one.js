@@ -154,9 +154,9 @@ const slidesPart1 = [
       {
         id: "light",
         src: "assets/elements/turn-on-light.png",
-        top: "4%",
-        left: "16%",
-        width: "162px",
+        top: "24px",
+        left: "56px",
+        width: "173px",
         offClass: "light-off-style",
       },
       {

@@ -145,7 +145,7 @@ const slidesPart4 = [
     //81
     type: "narration",
     image: baseUrl + "assets/images/69.webp",
-    texts: [],
+    texts: [{ content: "คุณปรับเเอร์จนพอใจเเล้ว ตั้งใจว่าจะดูทีวีต่อ", delay: 2000, position: "top" }],
   },
   {
     //17
@@ -159,14 +159,16 @@ const slidesPart4 = [
     //83
     type: "narration",
     image: baseUrl + "assets/images/71.webp",
-    texts: [],
+    texts: [{ content: "คุณดูรายการโปรดอย่างมีความสุข จนไม่รู้ว่าเวลาผ่านไปนานเเค่ไหนเเล้ว", delay: 2000, position: "top" }],
+    duration: 9000
+
   },
   {
     //19
     //84
     type: "narration",
     image: baseUrl + "assets/images/72.webp",
-    texts: [],
+    texts: [{ content: "เเต่คุณเพิ่งนึกได้ว่าลืมรีดชุดไปทำงานวันพรุ่งนี้", delay: 2000, position: "top" }],
   },
   {
     //20
@@ -314,11 +316,4 @@ const slidesPart4 = [
   },
 ];
 
-function saveScore(score) {
-  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-  //   const newScore = oldScore + score;
-  //   localStorage.setItem("totalScore", newScore.toString());
-  //   globalScore = newScore;
-}
-
-export { slidesPart4, globalScore, saveScore };
+export { slidesPart4 };

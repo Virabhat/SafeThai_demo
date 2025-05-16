@@ -239,6 +239,17 @@ html {
   cursor: pointer;
 }
 
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+.swiper-slide {
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
+
+
 
 
 
