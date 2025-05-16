@@ -257,45 +257,53 @@ function renderQuestion(slide) {
   const wrapper = document.createElement("div");
   wrapper.className = "question-container";
 
+  const selectedChoices = [];
+
+  // 🎯 คะแนนของแต่ละตัวเลือก
+  const scoreMap = {
+    light_one: -10,
+    light_two: -5,
+    light_three: 15,
+    home: -5,
+    here: -10,
+    mode_one: -10,
+    mode_two: -4,
+    mode_three: 10,
+    air_one: 8,
+    air_two: 0,
+    air_three: -5,
+    iron_one: 5,
+    iron_two: -5,
+    type_one: -8,
+    type_two: 0,
+    zero: -5,
+    one: 10,
+    two: 8,
+    three: 5,
+    efficiency: 5,
+    btu: 10,
+    recycle: 12
+  };
+
   const isSingleChoice = slide.choices.every(choice => typeof choice.nextIndex === "number");
 
   if (isSingleChoice) {
-    // ✅ แบบเลือก 1 ข้อ พร้อมให้คะแนน
+    // ✅ แบบเลือก 1 ข้อ
     slide.choices.forEach(({ id, label, nextIndex }) => {
       const btn = document.createElement("button");
       btn.className = "choice-button";
       btn.textContent = label;
 
       btn.addEventListener("click", () => {
-        // ✅ ให้คะแนนตาม ID
-        const scoring = {
-          light_one: -10,
-          light_two: -5,
-          light_three: 15,
-          home: -5,
-          here: -10,
-          mode_one: -10,
-          mode_two: -4,
-          mode_three: 10,
-          air_one: 8,
-          air_two: 0,
-          air_three: -5,
-          iron_one: 5,
-          iron_two: -5,
-          type_one: -8,
-          type_two: 0,
-          zero: -5,
-          one: 10,
-          two: 8,
-          three: 5
-        };
-        if (id in scoring) {
-          score += scoring[id];
-          console.log(`🎯 เลือก ${label} → ${scoring[id] > 0 ? "+" : ""}${scoring[id]} คะแนน`);
+        if (id in scoreMap) {
+          score += scoreMap[id];
+          console.log(`🎯 เลือก ${label} → ${scoreMap[id]} คะแนน`);
         }
 
         const scoreEl = document.getElementById("scoreDisplay");
-        if (scoreEl) scoreEl.innerText = `คะแนน: ${score}`;
+        if (scoreEl) {
+          scoreEl.innerText = `คะแนน: ${score}`;
+        }
 
         currentSlide = nextIndex;
         showSlide(currentSlide);
@@ -305,21 +313,27 @@ function renderQuestion(slide) {
     });
 
   } else {
-    // ✅ เลือกได้หลายข้อ + ให้คะแนนลำดับแรก
-    const selectedChoices = [];
-    const selectedDisplay = document.createElement("div");
-    selectedDisplay.style.marginTop = "12px";
-    selectedDisplay.style.color = "#000";
-    selectedDisplay.style.fontSize = "16px";
-    selectedDisplay.innerText = "เลือกได้สูงสุด 4 ตัวเลือก";
+    // ✅ แบบเลือกได้หลายข้อ
+  
 
-    // ✅ ปุ่มแบบ grid 2x2
+    // ✅ รายการลำดับที่เลือกไว้
+    const selectedDisplay = document.createElement("div");
+    selectedDisplay.style.display = "flex";
+    selectedDisplay.style.justifyContent = "center";
+    selectedDisplay.style.flexWrap = "wrap";
+    selectedDisplay.style.gap = "12px";
+    selectedDisplay.style.marginBottom = "50px";
+    selectedDisplay.style.fontSize = "14px";
+    selectedDisplay.style.fontWeight = "bold";
+    selectedDisplay.style.color = "#000";
+
+    // ✅ ปุ่มตัวเลือกแบบ 2x2
     const buttonGrid = document.createElement("div");
     buttonGrid.style.display = "grid";
     buttonGrid.style.gridTemplateColumns = "1fr 1fr";
     buttonGrid.style.gap = "16px";
     buttonGrid.style.maxWidth = "300px";
-    buttonGrid.style.margin = "24px auto";
+    buttonGrid.style.margin = "0 auto";
 
     slide.choices.forEach(({ id, label }) => {
       const btn = document.createElement("button");
@@ -334,21 +348,21 @@ function renderQuestion(slide) {
         btn.disabled = true;
         btn.style.opacity = 0.6;
 
-        if (selectedChoices.length === 1) {
-          if (id === "efficiency") {
-            score += 5;
-            console.log("✅ ได้ 5 คะแนนจาก 'ฉลากเบอร์ 5'");
-          } else if (id === "btu") {
-            score += 10;
-            console.log("✅ ได้ 10 คะแนนจาก 'BTU แอร์'");
-          }
+        // ✅ ให้คะแนนแค่ครั้งแรก
+        if (selectedChoices.length === 1 && id in scoreMap) {
+          score += scoreMap[id];
+          console.log(`🎯 ตัวเลือกแรก: ${label} → ${scoreMap[id]} คะแนน`);
 
           const scoreEl = document.getElementById("scoreDisplay");
-          if (scoreEl) scoreEl.innerText = `คะแนน: ${score}`;
+          if (scoreEl) {
+            scoreEl.innerText = `คะแนน: ${score}`;
+          }
         }
 
-        selectedDisplay.innerText =
-          selectedChoices.map((choice, i) => `${i + 1}. ${choice}`).join("\n");
+        // ✅ แสดงลำดับแบบแนวนอน
+        selectedDisplay.innerHTML = selectedChoices
+          .map((choice, i) => `<span>${i + 1}. ${choice}</span>`)
+          .join("");
 
         if (selectedChoices.length === 4) {
           localStorage.setItem("selectedAnswers", JSON.stringify(selectedChoices));
@@ -359,8 +373,9 @@ function renderQuestion(slide) {
       buttonGrid.appendChild(btn);
     });
 
-    wrapper.appendChild(buttonGrid);
+    // ✅ จัดเรียง
     wrapper.appendChild(selectedDisplay);
+    wrapper.appendChild(buttonGrid);
   }
 
   container.appendChild(wrapper);
