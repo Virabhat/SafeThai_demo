@@ -8,6 +8,8 @@ const slidesPart2 = [
     type: "narration",
     image: baseUrl + "/assets/images/22.webp",
     texts: [],
+    duration: 3000
+
   },
   {
     //1
@@ -15,6 +17,8 @@ const slidesPart2 = [
     type: "narration",
     image: baseUrl + "/assets/images/23.webp",
     texts: [],
+    duration: 3000
+
   },
   {
     //2
@@ -183,11 +187,5 @@ const slidesPart2 = [
   },
 ];
 
-function saveScore(score) {
-  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-  //   const newScore = oldScore + score;
-  //   localStorage.setItem("totalScore", newScore.toString());
-  //   globalScore = newScore;
-}
 
-export { slidesPart2, globalScore, saveScore };
+export { slidesPart2};

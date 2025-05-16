@@ -11,7 +11,6 @@ import { slidesPart5 } from "./data_five.js";
 // ตัวเเปร จ้า 
 const slides = [...slidesPart1, ...slidesPart2, ...slidesPart3, ...slidesPart4, ...slidesPart5];
 
-// แมปคะแนนตามอุณหภูมิ
 const tempScores = {
   "16": 1,
   "17": 2,
@@ -37,7 +36,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 25;
+let currentSlide = 28;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -81,8 +80,11 @@ function showSlide(index) {
     });
   }
 
+
   if (slide.type === "form") {
-    renderFormSlide();
+    setTimeout(() => {
+      renderFormSlide();
+    }, 300);
     return;
   }
 
@@ -133,18 +135,18 @@ function showSlide(index) {
       } else {
         goToNextSlide();
       }
-    }, totalDelay + 2000);
+    }, totalDelay + 3000);
   } else {
     if (slide.autoNextTo !== undefined) {
       setTimeout(() => {
         console.log(`⏭️ Jumping to autoNextTo: ${slide.autoNextTo}`);
         currentSlide = slide.autoNextTo;
         showSlide(currentSlide);
-      }, slide.duration || 2000);
+      }, slide.duration || 3000);
     } else {
       setTimeout(() => {
         goToNextSlide();
-      }, slide.duration || 4000);
+      }, slide.duration || 3000);
     }
   }
 }
@@ -172,69 +174,84 @@ function renderFormSlide() {
         </select>
       </div>
     `;
-  } 
+  }
   // ✅ default → ฟอร์มชื่อ
   else {
     formContent = `
       <div style="margin-bottom: 20px;">
-        <label for="userName" style="font-weight: bold;">ชื่อของคุณ:</label><br/>
-        <input id="userName" type="text" placeholder="กรอกชื่อ" style="margin-top: 6px; padding: 8px; width: 220px;" />
-      </div>
+        <img src="assets/images_form/one.png" alt="logo_one" style="width: 180px; margin-bottom: 10px;" />
+        <img src="assets/images_form/two.png" alt="logo_two" style="width: 180px; margin-bottom: 20px;" />
+
+        <div style="margin-bottom: 24px;">
+          <img src="assets/images_form/four.png" alt="logo_four" style="width: 80px;" />
+          <img src="assets/images_form/three.png" alt="logo_three" style="width: 80px;" />
+        </div>
+
+        <div style="margin-top: 20px; font-size: 24px; font-weight: bold;">ชื่อ</div>
+        <div style="font-size: 10px; color: #444; margin-bottom: 6px;">
+          (กรุณากรอกชื่อเป็นภาษาอังกฤษ ห้ามเว้นวรรค หรือใส่สัญลักษณ์)
+        </div>
+        <input id="userName" type="text" placeholder="ชื่อของคุณ" style="padding: 12px; font-size: 18px; width: 250px; border-radius: 8px; border: 2px solid #800080; font-family: 'Mitr', Arial, sans-serif; " />
+        <br><br>
     `;
+
   }
 
   // ✅ รวมฟอร์ม + ปุ่ม
   formWrapper.innerHTML = `
-    <div style="
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 24px;
-      border-radius: 16px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-      text-align: center;
-    ">
-      ${formContent}
-      <button id="submitFormBtn" style="
-        padding: 10px 24px;
-        background-color: #1976d2;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      ">ถัดไป</button>
-    </div>
-  `;
+  <div style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    text-align: center;
+    font-family: 'Mitr', Arial, sans-serif;
+  ">
+    ${formContent}
+    <button id="submitFormBtn" style="
+      margin-top: 16px;
+      padding: 12px 32px;
+      background-color: #800080;
+      color: white;
+      font-family: 'Mitr', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: regular;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    ">ถัดไป</button>
+  </div>
+`;
+
 
   container.appendChild(formWrapper);
 
   document.getElementById("submitFormBtn").addEventListener("click", () => {
-  if (slide.formType === "temperature") {
-    const temp = document.getElementById("tempSelect").value;
-    localStorage.setItem("selectedTemp", temp);
-    console.log(`🌡️ เลือกอุณหภูมิ: ${temp}°C`);
+    if (slide.formType === "temperature") {
+      const temp = document.getElementById("tempSelect").value;
+      localStorage.setItem("selectedTemp", temp);
+      console.log(`🌡️ เลือกอุณหภูมิ: ${temp}°C`);
 
-    const tempScore = tempScores[temp] ?? 0; // ถ้าไม่มีใน object จะได้ 0 คะแนน
-    score += tempScore;
+      const tempScore = tempScores[temp] ?? 0; // ถ้าไม่มีใน object จะได้ 0 คะแนน
+      score += tempScore;
 
-    if (tempScore > 0) {
-      console.log(`✅ ได้ ${tempScore} คะแนนจากอุณหภูมิ ${temp}°C`);
-    } else if (tempScore < 0) {
-      console.log(`⚠️ เสีย ${Math.abs(tempScore)} คะแนนจากอุณหภูมิ ${temp}°C`);
-    } else {
-      console.log("ℹ️ 0 คะแนน อุณหภูมิปานกลาง");
+      if (tempScore > 0) {
+        console.log(`✅ ได้ ${tempScore} คะแนนจากอุณหภูมิ ${temp}°C`);
+      } else if (tempScore < 0) {
+        console.log(`⚠️ เสีย ${Math.abs(tempScore)} คะแนนจากอุณหภูมิ ${temp}°C`);
+      } else {
+        console.log("ℹ️ 0 คะแนน อุณหภูมิปานกลาง");
+      }
     }
-  } 
-  formWrapper.remove();
-  goToNextSlide();
-});
+    formWrapper.remove();
+    goToNextSlide();
+  });
 
 }
-
-
 
 function renderQuestion(slide) {
   const wrapper = document.createElement("div");
@@ -250,71 +267,35 @@ function renderQuestion(slide) {
       btn.textContent = label;
 
       btn.addEventListener("click", () => {
-        // ✅ เงื่อนไขให้คะแนนของแต่ละกรณี
-        if (id === "light_one") {
-          score -= 10;
-          console.log("❌ เลือก 'หลอดไส้' → -10 คะแนน");
-        } else if (id === "light_two") {
-          score -= 5;
-          console.log("⚠️ เลือก 'ฟลูออเรสเซนต์' → -5 คะแนน");
-        } else if (id === "light_three") {
-          score += 15;
-          console.log("✅ เลือก 'LED' → +15 คะแนน");
-        } else if (id === "home") {
-          score -= 5;
-          console.log("🏠 สั่งกลับบ้าน → -5 คะแนน");
-        } else if (id === "here") {
-          score -= 10;
-          console.log("🍽️ กินที่นี่ → -10 คะแนน");
-        } else if (id === "mode_one"){
-          score -= 10;
-          console.log(" ออกไปเเปปเดียวไม่เป็นอะไร → -10 คะแนน");
-        } else if (id === "mode_two"){
-          score -= 4;
-          console.log(" กด sleep mode → -4 คะแนน");
-        } else if (id === "mode_three"){
-          score += 10;
-          console.log("ปิดคอมเลยดีกว่า + 10");
-        } else if (id === "air_one"){
-          score += 8;
-          console.log("ปิดเเอร์เลยดีกว่า + 8");
-        } else if (id === "air_two"){
-          score += 0; 
-          console.log("เปลี่ยนเป็น 20 องศา 0 คะเเนน");
-        } else if (id === "air_three"){
-          score -= 5;
-          console.log("เอาไว้เเบบนี้เเหละ - 5 คะเเนน");
-        } else if (id === "iron_one"){
-          score += 5;
-          console.log("รีดผ้าทั้งหมดทันที + 5 คะเเนน");
-        } else if (id === "iron_two"){
-          score -= 5; 
-          console.log("รีดเฉพาะชุดที่จะใส่ - 5 คะเเนน");
-        } else if (id === "type_one"){
-          score -= 8;
-          console.log("ชาร์จโปรศัทพ์ทิ้งไว้ - 8 คะเเนน")
-        } else if (id === "type_two"){
-          score += 0;
-          console.log("ค่อยชาร์จพรุ่งนี้ 0 คะเเนน")
-        } else if (id === "zero"){
-          score -= 5;
-          console.log("เบอร์ 0 - 5 คะเเนน");
-        } else if (id === "one"){
-          score += 10; 
-          console.log('เบอร์ 1 + 10 คะเเนน');
-        } else if (id === "two"){
-          score += 8;
-          console.log('เบอร์ 2 + 8 คะเเนน');
-        } else if (id === "three"){
-          score += 5;
-          console.log('เบอร์ 3 + 5 คะเเนน');
+        // ✅ ให้คะแนนตาม ID
+        const scoring = {
+          light_one: -10,
+          light_two: -5,
+          light_three: 15,
+          home: -5,
+          here: -10,
+          mode_one: -10,
+          mode_two: -4,
+          mode_three: 10,
+          air_one: 8,
+          air_two: 0,
+          air_three: -5,
+          iron_one: 5,
+          iron_two: -5,
+          type_one: -8,
+          type_two: 0,
+          zero: -5,
+          one: 10,
+          two: 8,
+          three: 5
+        };
+        if (id in scoring) {
+          score += scoring[id];
+          console.log(`🎯 เลือก ${label} → ${scoring[id] > 0 ? "+" : ""}${scoring[id]} คะแนน`);
         }
 
-        // ✅ อัปเดตคะแนนบนจอ
         const scoreEl = document.getElementById("scoreDisplay");
-        if (scoreEl) {
-          scoreEl.innerText = `คะแนน: ${score}`;
-        }
+        if (scoreEl) scoreEl.innerText = `คะแนน: ${score}`;
 
         currentSlide = nextIndex;
         showSlide(currentSlide);
@@ -324,13 +305,21 @@ function renderQuestion(slide) {
     });
 
   } else {
-    // ✅ แบบเลือกได้หลายข้อ + ให้คะแนนจากลำดับแรก
+    // ✅ เลือกได้หลายข้อ + ให้คะแนนลำดับแรก
     const selectedChoices = [];
     const selectedDisplay = document.createElement("div");
     selectedDisplay.style.marginTop = "12px";
     selectedDisplay.style.color = "#000";
     selectedDisplay.style.fontSize = "16px";
     selectedDisplay.innerText = "เลือกได้สูงสุด 4 ตัวเลือก";
+
+    // ✅ ปุ่มแบบ grid 2x2
+    const buttonGrid = document.createElement("div");
+    buttonGrid.style.display = "grid";
+    buttonGrid.style.gridTemplateColumns = "1fr 1fr";
+    buttonGrid.style.gap = "16px";
+    buttonGrid.style.maxWidth = "300px";
+    buttonGrid.style.margin = "24px auto";
 
     slide.choices.forEach(({ id, label }) => {
       const btn = document.createElement("button");
@@ -345,7 +334,6 @@ function renderQuestion(slide) {
         btn.disabled = true;
         btn.style.opacity = 0.6;
 
-        // ✅ ให้คะแนนตามตัวเลือกแรกเท่านั้น
         if (selectedChoices.length === 1) {
           if (id === "efficiency") {
             score += 5;
@@ -356,9 +344,7 @@ function renderQuestion(slide) {
           }
 
           const scoreEl = document.getElementById("scoreDisplay");
-          if (scoreEl) {
-            scoreEl.innerText = `คะแนน: ${score}`;
-          }
+          if (scoreEl) scoreEl.innerText = `คะแนน: ${score}`;
         }
 
         selectedDisplay.innerText =
@@ -370,9 +356,10 @@ function renderQuestion(slide) {
         }
       });
 
-      wrapper.appendChild(btn);
+      buttonGrid.appendChild(btn);
     });
 
+    wrapper.appendChild(buttonGrid);
     wrapper.appendChild(selectedDisplay);
   }
 
@@ -381,15 +368,11 @@ function renderQuestion(slide) {
 
 
 
-
-
-
-
 function setupQuizInteractions(slide) {
   clickedIds = new Set();
 
   // ✅ แสดง overlay ถ้ามี
-  slide.overlays?.forEach(({ id, src, top, left, width, offClass }) => {
+  slide.overlays?.forEach(({ id, src, top, left, width }) => {
     const img = document.createElement("img");
     img.src = src;
     img.className = "overlay";
@@ -397,7 +380,6 @@ function setupQuizInteractions(slide) {
     img.style.left = left;
     img.style.width = width;
     img.dataset.id = id;
-    img.dataset.offClass = offClass;
     container.appendChild(img);
   });
 
@@ -412,38 +394,31 @@ function setupQuizInteractions(slide) {
     dot.addEventListener("click", () => {
       const overlay = container.querySelector(`.overlay[data-id='${id}']`);
 
-     
-      if (overlay && overlay.dataset.offClass) {
-        // ✅ ถ้ามี overlay → ปิด overlay โดยเพิ่มคลาส
-        overlay.classList.add(overlay.dataset.offClass);
-      } else {
-        // ✅ ถ้าไม่มี overlay → แค่ fade-out จุดแดง
-        dot.classList.add("fade-out");
+      // ✅ ซ่อน overlay ด้วย display: none
+      if (overlay) {
+        overlay.style.display = "none";
       }
+
+      // ✅ ลบจุดแดงออกพร้อม fade
+      dot.classList.add("fade-out");
+      setTimeout(() => dot.remove(), 300); // เผื่อมี transition ค่อยลบ
 
       clickedIds.add(id);
-
-      // ✅ ถ้ากดครบทั้งหมด
-      if (clickedIds.size === (slide.glows?.length || 0)) {
-        goToNextSlide();
-        tryGoToNextSlide(id);
-
-      }
-
-      dot.remove(); // เอาจุดออกหลังจากกด
-
-      score += 10; // ✅ เพิ่มคะแนนจุดละ 10
+      score += 10;
       console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
 
-
+      if (clickedIds.size === (slide.glows?.length || 0)) {
+        goToNextSlide();
+      }
     });
 
     container.appendChild(dot);
   });
 
-  // ✅ ตั้งเวลาเผื่อผู้ใช้ไม่กด → ข้ามสไลด์ได้
+  // ✅ ตั้งเวลาเผื่อผู้ใช้ไม่กดครบ
   startSimpleTimer(slide, slide.duration || 5000);
 }
+
 
 function startSimpleTimer(slide, duration) {
   setTimeout(() => {
@@ -463,15 +438,6 @@ function startSimpleTimer(slide, duration) {
 
 
 
-// function tryGoToNextSlide(id) {
-//   clickedIds.add(id);
-//   if ([...requiredIds].every(item => clickedIds.has(item))) {
-//     clearTimeout(quizTimer);
-//     quizTimer = null;
-//     goToNextSlide();
-//   }
-// }
-
 function tryGoToNextSlide(id) {
   if (!clickedIds.has(id)) {
     clickedIds.add(id);
@@ -479,7 +445,6 @@ function tryGoToNextSlide(id) {
     console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
   }
 }
-
 
 
 function startQuizTimer(slide, duration) {
@@ -510,14 +475,7 @@ function startQuizTimer(slide, duration) {
   }, duration);
 }
 
-// function goToNextSlide() {
-//   currentSlide++;
-//   if (currentSlide < slides.length) {
-//     showSlide(currentSlide);
-//   } else {
-//     console.log("✅ All slides completed");
-//   }
-// }
+
 
 function goToNextSlide() {
   if (isFinished) {

@@ -49,6 +49,7 @@ const slidesPart1 = [
     image: baseUrl + "assets/images/6.webp",
     texts: [],
     duration: 1000
+
   },
   {
     //8
@@ -56,6 +57,7 @@ const slidesPart1 = [
     image: baseUrl + "assets/images/7.webp",
     texts: [],
     duration: 1000
+
   },
   {
     //9
@@ -63,6 +65,7 @@ const slidesPart1 = [
     image: baseUrl + "assets/images/8.webp",
     texts: [],
     duration: 1000
+
   },
   {
     //10
@@ -126,7 +129,7 @@ const slidesPart1 = [
   {
     //20
     type: "narration",
-    image: baseUrl + "assets/images/19.webp",
+    image: baseUrl + "assets/images/19_1.webp",
     texts: [
       {
         content: "เเต่",
@@ -180,24 +183,19 @@ const slidesPart1 = [
     ],
   },
   {
-    //22
+    // 22
     type: "narration",
     image: baseUrl + "/assets/images/20.webp",
     texts: [],
+    duration: 3000
   },
   {
-    //23
+    // 23
     type: "narration",
     image: baseUrl + "/assets/images/21.webp",
     texts: [],
+    duration: 3000
   },
 ];
 
-function saveScore(score) {
-  //   const oldScore = parseInt(localStorage.getItem("totalScore")) || 0;
-  //   const newScore = oldScore + score;
-  //   localStorage.setItem("totalScore", newScore.toString());
-  //   globalScore = newScore;
-}
-
-export { slidesPart1, globalScore, saveScore };
+export { slidesPart1 };
