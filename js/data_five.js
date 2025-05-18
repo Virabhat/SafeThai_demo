@@ -7,7 +7,7 @@ const slidesPart5 = [
     //103
     type: "narration",
     image: baseUrl + "/assets/images/89.webp",
-    texts: [],
+    texts: [{ content: "ก่อนนอน คุณปิดมือถือ\n อัปเดตโชเชียล", delay: 2000, position: "top" }],
   },
   {
     //1
@@ -73,7 +73,7 @@ const slidesPart5 = [
     //112
     type: "narration",
     image: baseUrl + "assets/images/98.webp",
-    texts: [],
+    texts: [{ content: "เริ่มง่วงนอนเเล้ว", delay: 2000, position: "top" }],
   },
   {
     //10

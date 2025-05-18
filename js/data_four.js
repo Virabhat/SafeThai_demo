@@ -270,6 +270,13 @@ const slidesPart4 = [
   {
     //32
     //97
+    type: "narration",
+    image: baseUrl + "assets/images/83.webp",
+    texts: [{ content: "ปิดเเต่ไฟหรอ", delay: 2000, position: "top" }],
+  },
+  {
+    //32
+    //97
     type: "quiz",
     image: baseUrl + "assets/images/83.webp",
     overlays: [

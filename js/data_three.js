@@ -38,7 +38,7 @@ const slidesPart3  = [
     //52
     type: "narration",
     image: baseUrl + "assets/images/50.webp",
-    texts: [{ content: "คุณนัดช่างเเอร์ มาติดตั้งเเอร์วันนี้", delay: 2000, position: "top" }],
+    texts: [{ content: "คุณนัดช่างเเอร์\nมาติดตั้งเเอร์วันนี้", delay: 2000, position: "top" }],
   },
   {
     //5
@@ -96,18 +96,24 @@ const slidesPart3  = [
     type: "narration",
     image: baseUrl + "assets/images/58.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //61
     type: "narration",
     image: baseUrl + "assets/images/59.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //62
     type: "narration",
     image: baseUrl + "assets/images/60.webp",
     texts: [],
+    duration: 1000
+
   },
   {
     //63
@@ -115,12 +121,12 @@ const slidesPart3  = [
     image: baseUrl + "assets/images/61.webp",
     texts: [],
   },
-  {
-    //64
-    type: "narration",
-    image: baseUrl + "assets/images/62.webp",
-    texts: [],
-  },
+  // {
+  //   //64
+  //   type: "narration",
+  //   image: baseUrl + "assets/images/62.webp",
+  //   texts: [],
+  // },
 ];
 
 

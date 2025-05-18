@@ -64,11 +64,60 @@ html {
   z-index: 1;
 }
 
-
-
 .text-overlay {
   position: absolute;
   color: #1E146C;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+}
+
+.text-screen-19{
+  position: absolute;
+  color: #1E146C;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+  border: 1px solid red;
+}
+
+.text-screen-23{
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  background-color: #4746468e;  /* สีเทาเข้ม */
+  display: inline-block;
+  padding: 0px 2px;
+  border-radius: 0px;
+}
+
+.text-screen-27{
+  position: absolute;
+  color: #1E146C;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+  border: 1px solid red;
+}
+
+.text-overlay-question{
+  position: absolute;
+  color: #fe0000;
   padding: 10px 16px;
   border-radius: 8px;
   left: 50%;
@@ -76,7 +125,7 @@ html {
   max-width: 90%;
   font-size: 18px;
   text-align: center;
-  z-index: 9999; /* 💥 ให้แน่ใจว่าอยู่บนสุด */
+  z-index: 9999; 
   opacity: 1;
 }
 
@@ -95,17 +144,6 @@ html {
   transition: transform 0.3s ease;
 }
 
-/* .glow-dot {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-image: url('https://safethai.wyndigitalgroup.com/assets/elements/point.png');
-  box-shadow: 0 0 20px 8px rgba(255, 0, 0, 0.4);
-  z-index: 4;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-} */
 
 .glow-dot:hover {
   opacity: 0.5;
@@ -123,10 +161,6 @@ html {
   transition: opacity 0.4s ease;
 }
 
-/* .fade-out {
-  opacity: 0;
-  pointer-events: none;
-} */
 
 .fade-out {
   opacity: 0;
@@ -239,18 +273,79 @@ html {
   cursor: pointer;
 }
 
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-.swiper-slide {
-  text-align: center;
-  background-size: cover;
-  background-position: center;
+.quiz-text{
+  color:#2c1778;
 }
 
 
 
+.selected-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 80px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.choice-button-frist {
+  background-color: #2c1778;
+  color: #fff;
+  padding: 10px 15px;
+  font-family: 'Mitr';
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 10px;
+}
 
 
 
+.choice-button-frist:hover {
+  background-color: #666;
+  transform: scale(1.05);
+}
+
+
+
+.choice-button-multiple {
+  background-color: #2c1778;
+  color: #fff;
+  padding: 12px;
+  font-family: 'Mitr';
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.choice-button-multiple:hover {
+  background-color: #666;
+  transform: scale(1.05);
+}
+
+.selected {
+  background-color: #555;
+  color: #ccc;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.selected-choices span {
+  margin: 0 5px;
+  padding: 4px 8px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  color: #333;
+}

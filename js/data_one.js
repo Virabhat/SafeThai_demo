@@ -48,24 +48,24 @@ const slidesPart1 = [
     type: "narration",
     image: baseUrl + "assets/images/6.webp",
     texts: [],
-    duration: 1000
-
+    duration: 1000,
+    transition: "no-transition"
   },
   {
     //8
     type: "narration",
     image: baseUrl + "assets/images/7.webp",
     texts: [],
-    duration: 1000
-
+    duration: 1000,
+    transition: "no-transition"
   },
   {
     //9
     type: "narration",
     image: baseUrl + "assets/images/8.webp",
     texts: [],
-    duration: 1000
-
+    duration: 1000,
+    transition: "no-transition"
   },
   {
     //10
@@ -90,12 +90,14 @@ const slidesPart1 = [
     type: "narration",
     image: baseUrl + "assets/images/12.webp",
     texts: [],
+    transition: "no-transition"
   },
   {
     //14
     type: "narration",
     image: baseUrl + "assets/images/13.webp",
     texts: [],
+    transition: "no-transition"
   },
   {
     //15
@@ -108,6 +110,7 @@ const slidesPart1 = [
     type: "narration",
     image: baseUrl + "assets/images/15.webp",
     texts: [{ content: "คุณจึงเสิร์ชหา", delay: 2000, position: "top" }],
+    transition: "no-transition"
   },
   {
     //17
@@ -124,7 +127,7 @@ const slidesPart1 = [
     //19
     type: "narration",
     image: baseUrl + "assets/images/18.webp",
-    texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top" }],
+    texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top", styleClass: "text-screen-19" }],
   },
   {
     //20
@@ -192,9 +195,10 @@ const slidesPart1 = [
   {
     // 23
     type: "narration",
-    image: baseUrl + "/assets/images/21.webp",
-    texts: [],
+    image: baseUrl + "/assets/images/19.webp",
+    texts: [{ content: "หลังจากจัดการทุกอย่างเสร็จ\nคุณก็ออกจากบ้านไป", delay: 2000, position: "bottom", styleClass: "text-screen-23" }],
     duration: 3000
+
   },
 ];
 
