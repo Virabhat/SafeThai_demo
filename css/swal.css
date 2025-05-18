@@ -1,0 +1,51 @@
+.swal2-popup {
+  width: 320px !important;
+  border-radius: 16px !important;
+  padding: 30px 40px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.swal2-title {
+  font-family: 'Mitr', sans-serif !important;
+  font-size: 24px !important;
+  color: #4a148c !important;
+  font-weight: bold !important;
+  margin-bottom: 10px !important;
+}
+
+.swal2-html-container {
+  font-size: 16px !important;
+  color: #555 !important;
+  margin-bottom: 20px !important;
+}
+
+.swal2-confirm {
+  background-color: #800080 !important;
+  color: #fff !important;
+  font-family: 'Mitr', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  padding: 10px 40px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s;
+}
+
+.swal2-confirm:hover {
+  background-color: #590059 !important;
+}
+
+.swal2-icon {
+  font-size: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+.swal2-icon.swal2-warning {
+  color: #f39c12 !important;
+}
+
+.swal2-backdrop-show {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}

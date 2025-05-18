@@ -42,6 +42,10 @@ const slidesPart2 = [
     //29
     type: "question",
     image: baseUrl + "assets/images/27.webp",
+    texts: [
+      { content: "ก่อนเลือกซื้อเเอร์\n คุณตัดสินใจจากมากไป ( มาก-น้อย )", delay: 1000, position: "top", styleClass: "question1-text-one"  },
+      { content: "คลิกเลือกลำดับ", delay: 1000, position: "top", styleClass: "question1-text-two"  }
+    ],
     choices: [
       { id: "efficiency", label: "ฉลากเบอร์ 5" },
       { id: "design", label: "ดีไซน์สวย" },
@@ -55,30 +59,30 @@ const slidesPart2 = [
     image: baseUrl + "/assets/images/28.webp",
     texts: [],
   },
-  // {
-  //   //31
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/29.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //32
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/10.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //33
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/30.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //34
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/31.webp",
-  //   texts: [{ content: "คุณเดินมาจากโซน\nเครื่องใช้ไฟฟ้า", delay: 1000, position: "top" }],
-  // },
+  {
+    //31
+    type: "narration",
+    image: baseUrl + "/assets/images/29.webp",
+    texts: [],
+  },
+  {
+    //32
+    type: "narration",
+    image: baseUrl + "/assets/images/10.webp",
+    texts: [],
+  },
+  {
+    //33
+    type: "narration",
+    image: baseUrl + "/assets/images/30.webp",
+    texts: [],
+  },
+  {
+    //34
+    type: "narration",
+    image: baseUrl + "/assets/images/31.webp",
+    texts: [{ content: "คุณเดินมาจากโซน\nเครื่องใช้ไฟฟ้า", delay: 1000, position: "top" }],
+  },
   // {
   //   //10
   //   //34

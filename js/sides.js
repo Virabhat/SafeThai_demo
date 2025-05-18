@@ -30,7 +30,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 20;
+let currentSlide = 29;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -95,12 +95,14 @@ function showSlide(index) {
 
     // ✅ ถ้าเป็นคำถาม
     if (slide.type === "question") {
+      clearTimeout(quizTimer);
       renderQuestion(slide);
       return;
     }
 
     // ✅ ถ้าเป็น quiz
     if (slide.type === "quiz") {
+      clearTimeout(quizTimer);
       clickedIds = new Set();
       setupQuizInteractions(slide);
       startQuizTimer(slide, 5000);
@@ -173,14 +175,14 @@ function applyTransition(currentImg, nextImg, transition) {
 
 
 function renderFormSlide() {
-  const slide = slides[currentSlide]; // ดึงข้อมูล slide ปัจจุบัน
+  const slide = slides[currentSlide];
   const formWrapper = document.createElement("div");
   formWrapper.className = "form-slide";
   formWrapper.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;z-index:100";
 
   let formContent = "";
 
-  // ✅ เงื่อนไข: ฟอร์มเลือกอุณหภูมิ
+  // เงื่อนไข: ฟอร์มเลือกอุณหภูมิ //
   if (slide.formType === "temperature") {
     const options = Array.from({ length: 14 }, (_, i) => 16 + i)
       .map(temp => `<option value="${temp}">${temp}°C</option>`)
@@ -195,7 +197,7 @@ function renderFormSlide() {
       </div>
     `;
   }
-  // ✅ default → ฟอร์มชื่อ
+  // default → ฟอร์มลงชื่อเข้าใช้
   else {
     formContent = `
       <div style="margin-bottom: 20px;">
@@ -252,11 +254,26 @@ function renderFormSlide() {
     if (slide.formType !== "temperature") {
       const userName = document.getElementById("userName").value.trim();
       if (userName === "") {
-        ร
-        alert("กรุณากรอกชื่อของคุณ");
+        Swal.fire({
+          title: 'ข้อมูลไม่ครบ!',
+          text: 'กรุณากรอกชื่อของคุณ',
+          icon: 'warning',
+          confirmButtonText: 'ตกลง',
+          customClass: {
+            popup: 'swal2-popup',
+            title: 'swal2-title',
+            confirmButton: 'swal2-confirm'
+          },
+          backdrop: `
+    rgba(0,0,0,0.5)
+    blur(10px)
+  `
+        });
+
         return; // ❌ หยุดไม่ให้ไปต่อ
       }
     }
+
 
     if (slide.formType === "temperature") {
       const temp = document.getElementById("tempSelect").value;
@@ -410,7 +427,6 @@ function renderQuestion(slide) {
 
 function setupQuizInteractions(slide) {
   clickedIds = new Set();
-
   // ✅ แสดง overlay ถ้ามี
   slide.overlays?.forEach(({ id, src, top, left, width }) => {
     const img = document.createElement("img");
@@ -432,6 +448,8 @@ function setupQuizInteractions(slide) {
     dot.dataset.target = id;
 
     dot.addEventListener("click", () => {
+      if (clickedIds.has(id)) return; // ✅ ป้องกันการกดซ้ำ
+
       const overlay = container.querySelector(`.overlay[data-id='${id}']`);
 
       // ✅ ซ่อน overlay ด้วย display: none
@@ -447,32 +465,44 @@ function setupQuizInteractions(slide) {
       score += 10;
       console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
 
-      if (clickedIds.size === (slide.glows?.length || 5000)) {
+      // ✅ เช็คว่ากดครบหรือยัง
+      if (slide.glows && clickedIds.size === slide.glows.length) {
+        console.log("✅ กดครบทุกจุด → ไปสไลด์ถัดไป");
+        clearTimeout(quizTimer); // ✅ หยุด Timer ถ้ากดครบ
         goToNextSlide();
       }
     });
 
     container.appendChild(dot);
   });
-  startSimpleTimer(slide, slide.duration || 6000);
+
+  // ✅ ตั้งเวลาเผื่อผู้ใช้ไม่กดครบ
+  if (slide.glows && slide.glows.length > 0) {
+    startSimpleTimer(slide, slide.duration || 6000);
+  }
 }
 
 
-function startSimpleTimer(slide, duration) {
-  setTimeout(() => {
-    if (clickedIds.size < (slide.glows?.length || 0)) {
-      console.log("⏰ หมดเวลา ยังไม่กดครบ → ไป failNextTo");
 
-      if (slide.failNextTo !== undefined) {
-        currentSlide = slide.failNextTo;
-        showSlide(currentSlide);
-        return;
-      }
+function startSimpleTimer(slide, duration) {
+  console.log("⏰ ตั้งเวลา", duration, "ms");
+
+  // ✅ ป้องกัน Timer ซ้อน
+  clearTimeout(quizTimer);
+
+  quizTimer = setTimeout(() => {
+    console.log("⏰ หมดเวลา → ไป failNextTo");
+
+    if (slide.failNextTo !== undefined) {
+      currentSlide = slide.failNextTo;
+      showSlide(currentSlide);
+      return;
     }
 
     goToNextSlide();
   }, duration);
 }
+
 
 
 
@@ -517,22 +547,36 @@ function startQuizTimer(slide, duration) {
 function goToNextSlide() {
   if (isFinished) {
     console.log("⛔ การแสดงผลหยุดลงแล้ว");
-    return; 
+    return;
   }
 
   currentSlide++;
 
+  // ✅ ตรวจสอบว่าเป็นสไลด์ที่ต้องเช็คคะแนนหรือไม่
   if (currentSlide === 134) {
     jumpByScore();
     return;
   }
 
-  if (currentSlide < slides.length) {
-    showSlide(currentSlide);
-  } else {
+  // ✅ ตรวจสอบว่าเกินช่วงสไลด์หรือไม่
+  if (currentSlide >= slides.length) {
     console.log("✅ All slides completed");
+    return;
   }
+
+  const nextSlide = slides[currentSlide];
+
+  // ✅ ตรวจสอบว่าเป็น slide ที่ต้องรอ input หรือไม่
+  if (["question", "quiz"].includes(nextSlide.type)) {
+    console.log(`🛑 หยุดที่ slide ${currentSlide} เพราะเป็นคำถามหรือ quiz`);
+    showSlide(currentSlide);
+    return;
+  }
+
+  // ✅ แสดง slide ถัดไป
+  showSlide(currentSlide);
 }
+
 
 
 function jumpByScore() {
@@ -552,7 +596,7 @@ function jumpByScore() {
 
   if (targetSlide !== null) {
     currentSlide = targetSlide;
-    isFinished = true; 
+    isFinished = true;
     showSlide(currentSlide);
   } else {
     console.log("❗ ไม่พบช่วงคะแนนที่ตรง");

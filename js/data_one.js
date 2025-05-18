@@ -23,7 +23,7 @@ const slidesPart1 = [
     //3
     type: "narration",
     image: baseUrl + "assets/images/2.webp",
-    texts: [{ content: "หนีร้อนเข้าบ้านดีกว่า", delay: 2000, position: "bottom" , styleClass: "small-text" }],
+    texts: [{ content: "หนีร้อนเข้าบ้านดีกว่า", delay: 2000, position: "bottom" , styleClass: "text-screen-3" }],
   },
   {
     //4
@@ -122,12 +122,13 @@ const slidesPart1 = [
     //18
     type: "narration",
     image: baseUrl + "assets/images/17.webp",
+    texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top", styleClass: "text-screen-18" }],
   },
   {
     //19
     type: "narration",
     image: baseUrl + "assets/images/18.webp",
-    texts: [{ content: "คุณเจอร้านขายเเอร์ที่ห้างใกล้ๆ", delay: 2000, position: "top", styleClass: "text-screen-19" }],
+    texts: [{ content: "คุณตัดสินใจไปซื้อทันที", delay: 2000, position: "top", styleClass: "text-screen-19" }],
   },
   {
     //20
