@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Picker</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css" />
+    <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Mitr', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .remote-container {
+            width: 280px;
+            height: 310px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .temp-label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #800080;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-slide-active {
+            font-size: 32px !important;
+            color: #ff0080 !important;
+            transform: scale(1.2) !important;
+        }
+
+        .submit-btn {
+            background-color: #800080;
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="remote-container" id="form-wrapper">
+        <div class="temp-label">เลือกอุณหภูมิแอร์:</div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper" id="temp-options"></div>
+        </div>
+        <button class="submit-btn" id="submitFormBtn">ถัดไป</button>
+    </div>
+
+    <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        const tempRange = Array.from({ length: 14 }, (_, i) => 16 + i);
+        const tempOptionsContainer = document.getElementById('temp-options');
+        tempRange.forEach(temp => {
+            const slide = document.createElement('div');
+            slide.classList.add('swiper-slide');
+            slide.textContent = `${temp}°C`;
+            tempOptionsContainer.appendChild(slide);
+        });
+
+        const swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            slidesPerView: 3,
+            centeredSlides: true,
+            spaceBetween: 10,
+            loop: true,
+        });
+
+        document.getElementById("submitFormBtn").addEventListener("click", () => {
+            // ดึงค่าอุณหภูมิที่เลือกจาก slide ตรงกลาง
+            const activeIndex = swiper.realIndex;
+            const selectedTemp = tempRange[activeIndex];
+            console.log(`🌡️ คุณเลือกอุณหภูมิ: ${selectedTemp}°C`);
+            localStorage.setItem("selectedTemp", selectedTemp);
+
+            // ลบฟอร์มออก
+            document.getElementById("form-wrapper").remove();
+
+            // ไปสไลด์ถัดไป
+            // goToNextSlide();
+        });
+
+    </script>
+</body>
+
+</html>

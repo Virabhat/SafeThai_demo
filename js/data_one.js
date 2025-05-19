@@ -153,6 +153,7 @@ const slidesPart1 = [
     //21
     type: "quiz",
     image: baseUrl + "assets/images/19.webp",
+    duration: 5000,
     failNextTo: 23 ,
     overlays: [
       {

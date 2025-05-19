@@ -98,9 +98,9 @@ const slidesPart2 = [
       { content: "คลิกเลือกลำดับ", delay: 2000, position: "top", styleClass: "question2-text-two" }
     ],
     choices: [
-      { id: "light_one", label: "หลอดไส้", nextIndex: 38 },
+      { id: "light_one", label: "หลอดไส้", nextIndex: 37 },
       { id: "light_two", label: "หลอดฟลูออเรสเซนต์", nextIndex: 39 },
-      { id: "light_three", label: "หลอด LED", nextIndex: 40 }
+      { id: "light_three", label: "หลอด LED", nextIndex: 41 }
     ]
   },
   {
@@ -108,6 +108,8 @@ const slidesPart2 = [
     type: "narration",
     image: baseUrl + "/assets/images/35.webp",
     texts: [],
+    autoNextTo: 38
+
   },
   {
     //38
@@ -115,62 +117,78 @@ const slidesPart2 = [
     image: baseUrl + "/assets/images/36.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 41
+    autoNextTo: 43
   },
   {
     //39
     type: "narration",
-    image: baseUrl + "/assets/images/37.webp",
+    image: baseUrl + "/assets/images/35.webp",
     texts: [],
-    duration: 3000,
-    autoNextTo: 41
+    autoNextTo: 40
+
   },
   {
     //40
     type: "narration",
-    image: baseUrl + "/assets/images/38.webp",
+    image: baseUrl + "/assets/images/37.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 41
+    autoNextTo: 43
   },
   {
     //41
+    type: "narration",
+    image: baseUrl + "/assets/images/35.webp",
+    texts: [],
+    autoNextTo: 42
+
+  },
+  {
+    //42
+    type: "narration",
+    image: baseUrl + "/assets/images/38.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 43
+  },
+  {
+    //43
     type: "narration",
     image: baseUrl + "/assets/images/39.webp",
     texts: [],
   },
   {
-    //42
+    //44
     type: "narration",
     image: baseUrl + "/assets/images/40.webp",
     texts: [],
   },
   {
-    //43
+    //45
     type: "narration",
     image: baseUrl + "/assets/images/41.webp",
     texts: [],
   },
   {
-    //44
+    //46
     type: "narration",
     image: baseUrl + "/assets/images/42.webp",
     texts: [],
   },
   {
-    //45
+    //47
     type: "narration",
     image: baseUrl + "/assets/images/43.webp",
     texts: [{ content: "คุณได้ของที่ต้องการ\nครบเเล้ว", delay: 1000, position: "top" }],
   },
   {
-    //46
+    //48
     type: "narration",
     image: baseUrl + "/assets/images/44.webp",
     texts: [],
   },
   {
-    //47
+    //49
     type: "narration",
     image: baseUrl + "/assets/images/45.webp",
     texts: [],

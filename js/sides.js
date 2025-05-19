@@ -1,10 +1,10 @@
 import { slidesPart1 } from "./data_one.js";
 import { slidesPart2 } from "./data_two.js";
-// import { slidesPart3 } from "./data_three.js";
-// import { slidesPart4 } from "./data_four.js";
-// import { slidesPart5 } from "./data_five.js";
+import { slidesPart3 } from "./data_three.js";
+import { slidesPart4 } from "./data_four.js";
+import { slidesPart5 } from "./data_five.js";
 
-const slides = [...slidesPart1, ...slidesPart2, ];
+const slides = [...slidesPart1, ...slidesPart2, ...slidesPart3, ...slidesPart4, ...slidesPart5 ];
 
 const tempScores = {
   "16": 1,
@@ -30,7 +30,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 0;
+let currentSlide = 110;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -69,6 +69,15 @@ function showSlide(index) {
     console.log(`🎯 คะเเนนของคุณ ${score}`);
     console.log(`🔄 Transition: ${slide.transition || "default"}`);
 
+    if (slide.texts && slide.texts.length > 0) {
+      console.log("📝 ข้อความในสไลด์:");
+      slide.texts.forEach((textObj, i) => {
+        console.log(`   ${i + 1}. ${textObj.content} (delay: ${textObj.delay || 2000}ms)`);
+      });
+    } else {
+      console.log("📝 ไม่มีข้อความในสไลด์นี้");
+    }
+
 
     if (slide.download) {
       const downloadButton = document.createElement("button");
@@ -84,7 +93,7 @@ function showSlide(index) {
     }
 
 
-    // ✅ ถ้าเป็นฟอร์ม
+    // ถ้าเป็นฟอร์ม
     if (slide.type === "form") {
       setTimeout(() => {
         renderFormSlide();
@@ -92,7 +101,7 @@ function showSlide(index) {
       return;
     }
 
-    // ✅ ถ้าเป็น intro และต้องคลิก
+    // ถ้าเป็น intro หน้าเเรกและต้องคลิก
     if (slide.type === "intro" && slide.waitForClick) {
       const overlay = document.createElement("div");
       overlay.className = "intro-overlay";
@@ -106,14 +115,14 @@ function showSlide(index) {
       return;
     }
 
-    // ✅ ถ้าเป็นคำถาม
+    //ถ้าเป็นคำถาม
     if (slide.type === "question") {
       clearTimeout(quizTimer);
       renderQuestion(slide);
       return;
     }
 
-    // ✅ ถ้าเป็น quiz
+    //ถ้าเป็น quiz
     if (slide.type === "quiz") {
       clearTimeout(quizTimer);
       clickedIds = new Set();
@@ -122,16 +131,16 @@ function showSlide(index) {
       return;
     }
 
-    // ✅ แสดงข้อความทีละตัว (Queue)
+    //แสดงข้อความทีละตัว (Queue)
     if (slide.texts && slide.texts.length > 0) {
       let totalDelay = 0;
       container.querySelectorAll(".text-overlay").forEach((el) => el.remove());
 
-      // ✅ แสดงข้อความทีละตัว
+      //แสดงข้อความทีละตัว
       slide.texts.forEach(({ content, delay = 3000, position, styleClass }, index) => {
         totalDelay += delay;
         setTimeout(() => {
-          // ✅ ลบข้อความก่อนหน้า
+          //ลบข้อความก่อนหน้า
           container.querySelectorAll(".text-overlay").forEach((el) => el.remove());
 
           const textDiv = document.createElement("div");
@@ -144,7 +153,7 @@ function showSlide(index) {
         }, totalDelay);
       });
 
-      // ✅ รอข้อความสุดท้ายก่อนย้ายไปสไลด์ถัดไป
+      //รอข้อความสุดท้ายก่อนย้ายไปสไลด์ถัดไป
       setTimeout(() => {
         if (["form", "question", "quiz"].includes(slide.type)) return;
         if (slide.autoNextTo !== undefined) {
@@ -156,7 +165,7 @@ function showSlide(index) {
         }
       }, totalDelay + 3000);
     } else {
-      // ✅ ถ้าไม่มีข้อความ ให้เปลี่ยนสไลด์ตามปกติ
+      //ถ้าไม่มีข้อความ ให้เปลี่ยนสไลด์ตามปกติ
       setTimeout(() => {
         if (slide.autoNextTo !== undefined) {
           console.log(`⏭️ Jumping to autoNextTo: ${slide.autoNextTo}`);
@@ -503,11 +512,6 @@ function setupQuizInteractions(slide) {
 
     container.appendChild(dot);
   });
-
-  // ✅ ตั้งเวลาเผื่อผู้ใช้ไม่กดครบ
-  if (slide.glows && slide.glows.length > 0) {
-    startSimpleTimer(slide, slide.duration || 6000);
-  }
 }
 
 
@@ -523,6 +527,7 @@ function startSimpleTimer(slide, duration) {
 
     if (slide.failNextTo !== undefined) {
       currentSlide = slide.failNextTo;
+      clearTimeout(quizTimer);
       showSlide(currentSlide);
       return;
     }
@@ -534,13 +539,6 @@ function startSimpleTimer(slide, duration) {
 
 
 
-function tryGoToNextSlide(id) {
-  if (!clickedIds.has(id)) {
-    clickedIds.add(id);
-    score += 10;
-    console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
-  }
-}
 
 
 function startQuizTimer(slide, duration) {
@@ -571,6 +569,15 @@ function startQuizTimer(slide, duration) {
 }
 
 
+function tryGoToNextSlide(id) {
+  if (!clickedIds.has(id)) {
+    clickedIds.add(id);
+    score += 10;
+    console.log(`🎯 กดปิด "${id}" → ได้ 10 คะแนน, รวม: ${score}`);
+  }
+}
+
+
 
 function goToNextSlide() {
   if (isFinished) {
@@ -592,19 +599,9 @@ function goToNextSlide() {
     return;
   }
 
-  const nextSlide = slides[currentSlide];
-
-  // ✅ ตรวจสอบว่าเป็น slide ที่ต้องรอ input หรือไม่
-  if (["question", "quiz"].includes(nextSlide.type)) {
-    console.log(`🛑 หยุดที่ slide ${currentSlide} เพราะเป็นคำถามหรือ quiz`);
-    showSlide(currentSlide);
-    return;
-  }
-
   // ✅ แสดง slide ถัดไป
   showSlide(currentSlide);
 }
-
 
 
 function jumpByScore() {
