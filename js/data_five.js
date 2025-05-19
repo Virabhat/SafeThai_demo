@@ -14,6 +14,16 @@ const slidesPart5 = [
     image: baseUrl + "assets/images/90.webp",
     texts: [],
   },
+  // {
+  //   107
+  //   type: "swiper",
+  //   content: `
+  //     <iframe 
+  //       src="./assets/swiperscreen.html">
+  //     </iframe>
+  //   `,
+  //   texts: [],
+  // },
   {
     //107
     type: "swiper",
