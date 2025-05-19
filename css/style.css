@@ -139,6 +139,58 @@ html {
   opacity: 1;
 }
 
+.text-screen-54{
+  position: absolute;
+  color: #1E146C;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+}
+
+.text-screen-82{
+  position: absolute;
+  color: #1E146C;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+}
+
+.text-screen-96{
+  position: absolute;
+  color: #fcfcfc;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+}
+
+.text-screen-128{
+  position: absolute;
+  color: #fcfcfc;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
+}
+
 .question1-text-one{
   position: fixed;
   top: 50px;  /* ปรับจาก 0px เพื่อให้มีระยะห่างจากขอบ */
@@ -167,6 +219,37 @@ html {
   opacity: 1;
   background-color: #1e1167;
   margin-top: 260px;
+  border-radius: 20px;
+}
+
+.question2-text-one{
+  position: fixed;
+  top: 50px; 
+  left: 50%;
+  transform: translateX(-50%);
+  color: #1E146C;
+  padding: 10px 20px;
+  width: calc(100% - 40px);  
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999;
+  opacity: 1;
+}
+
+.question2-text-two{
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  padding: 10px 0;
+  width: 40% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999;
+  opacity: 1;
+  background-color: #1e1167;
+  margin-top: 75px;
   border-radius: 20px;
 }
 
@@ -358,6 +441,7 @@ html {
   cursor: pointer;
   transition: all 0.2s;
   margin: 10px;
+  margin-bottom: 250px;
 }
 
 
@@ -398,4 +482,55 @@ html {
   background-color: #f3f3f3;
   border-radius: 8px;
   color: #333;
+}
+
+.button-zero {
+  background-color: #ffcccc;
+  color: #000;
+}
+
+.button-one {
+  background-color: #ccffcc;
+  color: #000;
+}
+
+.button-two {
+  background-color: #ccccff;
+  color: #000;
+}
+
+.button-three {
+  background-color: #ffffcc;
+  color: #000;
+}
+
+/* เพิ่ม hover effect */
+.button-zero:hover,
+.button-one:hover,
+.button-two:hover,
+.button-three:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.download-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Mitr', sans-serif;
+    font-size: 16px;
+    transition: background-color 0.2s;
+    z-index: 9999;
+    text-decoration: none;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
 }

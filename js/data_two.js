@@ -83,111 +83,98 @@ const slidesPart2 = [
     image: baseUrl + "/assets/images/31.webp",
     texts: [{ content: "คุณเดินมาจากโซน\nเครื่องใช้ไฟฟ้า", delay: 1000, position: "top" }],
   },
-  // {
-  //   //10
-  //   //34
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/32.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //11
-  //   //35
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/33.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //12
-  //   //36
-  //   type: "question",
-  //   image: baseUrl + "/assets/images/34.webp",
-  //   texts: [{ content: "บนชั้นวาง\nมีหลอดไฟ 3 เเบบ", delay: 2000, position: "top", styleClass: "quiz-text" }],
-  //   choices: [
-  //     { id: "light_one", label: "หลอดไส้", nextIndex: 38 },
-  //     { id: "light_two", label: "หลอดฟลูออเรสเซนต์", nextIndex: 39 },
-  //     { id: "light_three", label: "หลอด LED", nextIndex: 40 }
-  //   ]
-  // },
-  // {
-  //   //13
-  //   //37
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/35.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //14
-  //   //38
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/36.webp",
-  //   texts: [],
-  //   duration: 3000,
-  //   autoNextTo: 41
-  // },
-  // {
-  //   //15
-  //   //39
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/37.webp",
-  //   texts: [],
-  //   duration: 3000,
-  //   autoNextTo: 41
-  // },
-  // {
-  //   //16
-  //   //40
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/38.webp",
-  //   texts: [],
-  //   duration: 3000,
-  //   autoNextTo: 41
-  // },
-  // {
-  //   //17
-  //   //41
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/39.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //18
-  //   //42
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/40.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //19
-  //   //43
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/41.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //44
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/42.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //45
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/43.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //46
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/44.webp",
-  //   texts: [],
-  // },
-  // {
-  //   //47
-  //   type: "narration",
-  //   image: baseUrl + "/assets/images/45.webp",
-  //   texts: [],
-  // },
+  {
+    //35
+    type: "narration",
+    image: baseUrl + "/assets/images/33.webp",
+    texts: [],
+  },
+  {
+    //36
+    type: "question",
+    image: baseUrl + "/assets/images/34.webp",
+    texts: [
+      { content: "บนชั้นวาง\nมีหลอดไฟ 3 เเบบ", delay: 2000, position: "top", styleClass: "question2-text-one" },
+      { content: "คลิกเลือกลำดับ", delay: 2000, position: "top", styleClass: "question2-text-two" }
+    ],
+    choices: [
+      { id: "light_one", label: "หลอดไส้", nextIndex: 38 },
+      { id: "light_two", label: "หลอดฟลูออเรสเซนต์", nextIndex: 39 },
+      { id: "light_three", label: "หลอด LED", nextIndex: 40 }
+    ]
+  },
+  {
+    //37
+    type: "narration",
+    image: baseUrl + "/assets/images/35.webp",
+    texts: [],
+  },
+  {
+    //38
+    type: "narration",
+    image: baseUrl + "/assets/images/36.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 41
+  },
+  {
+    //39
+    type: "narration",
+    image: baseUrl + "/assets/images/37.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 41
+  },
+  {
+    //40
+    type: "narration",
+    image: baseUrl + "/assets/images/38.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 41
+  },
+  {
+    //41
+    type: "narration",
+    image: baseUrl + "/assets/images/39.webp",
+    texts: [],
+  },
+  {
+    //42
+    type: "narration",
+    image: baseUrl + "/assets/images/40.webp",
+    texts: [],
+  },
+  {
+    //43
+    type: "narration",
+    image: baseUrl + "/assets/images/41.webp",
+    texts: [],
+  },
+  {
+    //44
+    type: "narration",
+    image: baseUrl + "/assets/images/42.webp",
+    texts: [],
+  },
+  {
+    //45
+    type: "narration",
+    image: baseUrl + "/assets/images/43.webp",
+    texts: [{ content: "คุณได้ของที่ต้องการ\nครบเเล้ว", delay: 1000, position: "top" }],
+  },
+  {
+    //46
+    type: "narration",
+    image: baseUrl + "/assets/images/44.webp",
+    texts: [],
+  },
+  {
+    //47
+    type: "narration",
+    image: baseUrl + "/assets/images/45.webp",
+    texts: [],
+  },
 ];
 
 

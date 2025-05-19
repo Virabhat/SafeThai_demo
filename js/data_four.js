@@ -3,71 +3,63 @@ let globalScore = 0;
 
 const slidesPart4 = [
   {
-    //0 
-    //65
+    //64
     type: "narration",
     image: baseUrl + "/assets/images/63.webp",
     texts: [],
   },
   {
-    //1
-    //66
+    //65
     type: "question",
     image: baseUrl + "assets/images/64.webp",
     choices: [
-      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 67 },
-      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 69 },
-      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 71 },
+      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 66 },
+      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 68 },
+      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 70 },
     ],
   },
   {
-    //2
-    //67
+    //66
     type: "narration",
     image: baseUrl + "assets/images/78_1_1.webp",
     texts: [],
     duration: 3000,
-    autoNextTo: 68
+    autoNextTo: 67
   },
   {
-    //3
-    //68
+    //67
     type: "narration",
     image: baseUrl + "assets/images/78_1_2.webp",
-    texts: [],
-    duration: 3000,
-    autoNextTo: 73
-  },
-  {
-    //4
-    //69
-    type: "narration",
-    image: baseUrl + "assets/images/78_2_1.webp",
-    texts: [],
-    duration: 3000,
-    autoNextTo: 70
-  },
-  {
-    //5
-    //70
-    type: "narration",
-    image: baseUrl + "assets/images/78_2_2.webp",
-    texts: [],
-    duration: 3000,
-    autoNextTo: 73
-  },
-  {
-    //6
-    //71
-    type: "narration",
-    image: baseUrl + "assets/images/78_3_1.webp",
     texts: [],
     duration: 3000,
     autoNextTo: 72
   },
   {
-    //7
-    //72
+    //68
+    type: "narration",
+    image: baseUrl + "assets/images/78_2_1.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 69
+  },
+  {
+    //69
+    type: "narration",
+    image: baseUrl + "assets/images/78_2_2.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 72
+  },
+  {
+    //70
+    type: "narration",
+    image: baseUrl + "assets/images/78_3_1.webp",
+    texts: [],
+    duration: 3000,
+    autoNextTo: 71
+  },
+  {
+    //71
     type: "narration",
     image: baseUrl + "assets/images/78_3_2.webp",
     texts: [],
@@ -75,104 +67,91 @@ const slidesPart4 = [
     autoNextTo: 73
   },
   {
-    //8
-    //73
+    //72
     type: "narration",
     image: baseUrl + "assets/images/65.webp",
     texts: [],
   },
   {
-    //9
-    //74
+    //73
     type: "narration",
     image: baseUrl + "assets/images/65_2.webp",
     texts: [{ content: "เเอร์เย็นสบายดีนะ", delay: 1000, position: "top" }],
   },
   {
-    //10
-    //75
+    //74
     type: "narration",
     image: baseUrl + "assets/images/66.webp",
     texts: [],
   },
   {
-    //11
-    //76
+    //75
     type: "narration",
     image: baseUrl + "assets/images/67.webp",
     texts: [],
   },
   {
-    //12
-    //77
+    //76
     type: "question",
     image: baseUrl + "assets/images/68.webp",
     choices: [
-      { id: "air_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 78 },
-      { id: "air_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 79 },
-      { id: "air_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 80 },
+      { id: "air_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 77 },
+      { id: "air_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 78 },
+      { id: "air_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 79 },
     ],
   },
   {
-    //13
-    //78
+    //77
     type: "narration",
     image: baseUrl + "assets/images/68_1.webp",
     texts: [],
-    autoNextTo: 81
+    autoNextTo: 80
 
   },
   {
-    //14
-    //79
+    //78
     type: "narration",
     image: baseUrl + "assets/images/68_2.webp",
     texts: [],
-    autoNextTo: 81
+    autoNextTo: 80
 
   },
   {
-    //15
-    //80
+    //79
     type: "narration",
     image: baseUrl + "assets/images/68_3.webp",
     texts: [],
-    autoNextTo: 81
+    autoNextTo: 80
 
   },
   {
-    //16
-    //81
+    //80
     type: "narration",
     image: baseUrl + "assets/images/69.webp",
     texts: [{ content: "คุณปรับเเอร์จนพอใจเเล้ว ตั้งใจว่าจะดูทีวีต่อ", delay: 2000, position: "top" }],
   },
   {
-    //17
-    //82
+    //81
     type: "narration",
     image: baseUrl + "assets/images/70.webp",
     texts: [],
   },
   {
-    //18
-    //83
+    //82
     type: "narration",
     image: baseUrl + "assets/images/71.webp",
-    texts: [{ content: "คุณดูรายการโปรดอย่างมีความสุข จนไม่รู้ว่าเวลาผ่านไปนานเเค่ไหนเเล้ว", delay: 2000, position: "top" }],
+    texts: [{ content: "คุณดูรายการโปรดอย่างมีความสุข\nจนไม่รู้ว่าเวลาผ่านไปนานเเค่ไหนเเล้ว", delay: 2000, position: "top", styleClass: "text-screen-82" }],
     duration: 9000
 
   },
   {
-    //19
-    //84
+    //83
     type: "narration",
     image: baseUrl + "assets/images/72.webp",
     texts: [{ content: "เเต่คุณเพิ่งนึกได้ว่าลืมรีดชุดไปทำงานวันพรุ่งนี้", delay: 2000, position: "top" }],
   },
   {
-    //20
-    //85
+    //84
     type: "question",
     image: baseUrl + "assets/images/73.webp",
     choices: [
@@ -181,8 +160,7 @@ const slidesPart4 = [
     ],
   },
   {
-    //21
-    //86
+    //85
     type: "narration",
     image: baseUrl + "assets/images/73_1.webp",
     texts: [],
@@ -190,8 +168,7 @@ const slidesPart4 = [
 
   },
   {
-    //22
-    //87
+    //86
     type: "narration",
     image: baseUrl + "assets/images/73_2.webp",
     texts: [],
@@ -199,15 +176,13 @@ const slidesPart4 = [
 
   },
   {
-    //23
-    //88
+    //87
     type: "narration",
     image: baseUrl + "assets/images/74.webp",
     texts: [],
   },
   {
-    //24
-    //89
+    //88
     type: "narration",
     image: baseUrl + "assets/images/75.webp",
     texts: [],
@@ -215,8 +190,7 @@ const slidesPart4 = [
 
   },
   {
-    //25
-    //90
+    //89
     type: "narration",
     image: baseUrl + "assets/images/76.webp",
     texts: [],
@@ -224,8 +198,8 @@ const slidesPart4 = [
 
   },
   {
-    //26
-    //91
+
+    //90
     type: "narration",
     image: baseUrl + "assets/images/77.webp",
     texts: [],
@@ -233,49 +207,42 @@ const slidesPart4 = [
 
   },
   {
-    //27
-    //92
+    //91
     type: "narration",
     image: baseUrl + "assets/images/78.webp",
     texts: [],
   },
   {
-    //28
-    //93
+    //92
     type: "narration",
     image: baseUrl + "assets/images/79.webp",
     texts: [],
   },
   {
-    //29
-    //94
+    //93
     type: "narration",
     image: baseUrl + "assets/images/80.webp",
     texts: [],
   },
   {
-    //30
-    //95
+    //94
     type: "narration",
     image: baseUrl + "assets/images/81.webp",
     texts: [],
   },
   {
-    //31
-    //96
+    //95
     type: "narration",
     image: baseUrl + "assets/images/82.webp",
     texts: [],
   },
   {
-    //32
-    //97
+    //96
     type: "narration",
     image: baseUrl + "assets/images/83.webp",
-    texts: [{ content: "ปิดเเต่ไฟหรอ", delay: 2000, position: "top" }],
+    texts: [{ content: "ปิดเเต่ไฟหรอ", delay: 2000, position: "top", styleClass: "text-screen-96" }],
   },
   {
-    //32
     //97
     type: "quiz",
     image: baseUrl + "assets/images/83.webp",
@@ -287,39 +254,40 @@ const slidesPart4 = [
     ],
   },
   {
-    //33
     //98
     type: "narration",
     image: baseUrl + "assets/images/84.webp",
     texts: [],
   },
   {
-    //34
     //99
     type: "narration",
     image: baseUrl + "assets/images/85.webp",
     texts: [],
   },
   {
-    //35
     //100
     type: "narration",
     image: baseUrl + "assets/images/86.webp",
     texts: [],
+    duration: 1000
+
   },
   {
-    //36
     //101
     type: "narration",
     image: baseUrl + "assets/images/87.webp",
     texts: [],
+    duration: 1000
+
   },
   {
-    //37
     //102
     type: "narration",
     image: baseUrl + "assets/images/88.webp",
     texts: [],
+    duration: 1000
+
   },
 ];
 

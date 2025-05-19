@@ -4,7 +4,7 @@ import { slidesPart2 } from "./data_two.js";
 // import { slidesPart4 } from "./data_four.js";
 // import { slidesPart5 } from "./data_five.js";
 
-const slides = [...slidesPart1, ...slidesPart2];
+const slides = [...slidesPart1, ...slidesPart2, ];
 
 const tempScores = {
   "16": 1,
@@ -30,7 +30,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 
 
-let currentSlide = 29;
+let currentSlide = 0;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -45,7 +45,6 @@ function showSlide(index) {
     return;
   }
 
-  document.getElementById("swiperContainer").style.display = "none";
   container
     .querySelectorAll(".text-overlay, .overlay, .glow-dot, .time-bar-container, .question-container, .intro-overlay, .form-slide")
     .forEach((el) => el.remove());
@@ -69,6 +68,20 @@ function showSlide(index) {
     console.log(`➡️ Next autoNextTo: ${slide.autoNextTo}`);
     console.log(`🎯 คะเเนนของคุณ ${score}`);
     console.log(`🔄 Transition: ${slide.transition || "default"}`);
+
+
+    if (slide.download) {
+      const downloadButton = document.createElement("button");
+      downloadButton.className = "download-button";
+      downloadButton.textContent = "📥 ดาวน์โหลดรูป";
+      downloadButton.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.href = slide.image.replace("baseUrl + ", "");
+        link.download = link.href.split("/").pop();
+        link.click();
+      });
+      container.appendChild(downloadButton);
+    }
 
 
     // ✅ ถ้าเป็นฟอร์ม
@@ -157,6 +170,7 @@ function showSlide(index) {
   };
   nextImg.src = slide.image;
 }
+
 
 function applyTransition(currentImg, nextImg, transition) {
   currentImg.classList.remove("fade", "no-transition", "slide-left", "slide-right", "zoom", "rotate");
@@ -305,6 +319,7 @@ function renderQuestion(slide) {
 
   const selectedChoices = [];
 
+  // 🎯 คะแนนของแต่ละตัวเลือก
   const scoreMap = {
     light_one: -10,
     light_two: -5,
@@ -330,13 +345,12 @@ function renderQuestion(slide) {
     recycle: 12
   };
 
-  const isSingleChoice = slide.choices.every(choice => typeof choice.nextIndex === "number");
-
+  // ✅ แสดงข้อความ (ถ้ามี)
   if (slide.texts && slide.texts.length > 0) {
     slide.texts.forEach(({ content, delay = 2000, position, styleClass }) => {
       const textDiv = document.createElement("div");
       textDiv.className = "text-overlay-question";
-      textDiv.innerHTML = content.replace(/\n/g, "<br>"); // ✅ รองรับ \n เป็น <br>
+      textDiv.innerHTML = content.replace(/\n/g, "<br>");
 
       // ✅ จัดตำแหน่งข้อความ
       textDiv.classList.add(position === "top" ? "text-top" : "text-bottom");
@@ -346,11 +360,19 @@ function renderQuestion(slide) {
     });
   }
 
-  // ✅ first Choice
+  const isSingleChoice = slide.choices.every(choice => typeof choice.nextIndex === "number");
+
+  // ✅ แบบเลือก 1 ข้อ
   if (isSingleChoice) {
-    slide.choices.forEach(({ id, label, nextIndex }) => {
+    slide.choices.forEach(({ id, label, nextIndex, styleClass }) => {
       const btn = document.createElement("button");
       btn.className = "choice-button-frist";
+
+      // ✅ เพิ่ม styleClass ถ้ามี
+      if (styleClass) {
+        btn.classList.add(styleClass);
+      }
+
       btn.textContent = label;
 
       btn.addEventListener("click", () => {
@@ -372,17 +394,22 @@ function renderQuestion(slide) {
     });
 
   } else {
-
-    // ✅ Multiple Choice
+    // ✅ แบบเลือกได้หลายข้อ
     const selectedDisplay = document.createElement("div");
     selectedDisplay.className = "selected-display";
 
     const buttonGrid = document.createElement("div");
     buttonGrid.className = "button-grid";
 
-    slide.choices.forEach(({ id, label }) => {
+    slide.choices.forEach(({ id, label, styleClass }) => {
       const btn = document.createElement("button");
       btn.className = "choice-button-multiple";
+
+      // ✅ เพิ่ม styleClass ถ้ามี
+      if (styleClass) {
+        btn.classList.add(styleClass);
+      }
+
       btn.textContent = label;
 
       btn.addEventListener("click", () => {
@@ -419,10 +446,11 @@ function renderQuestion(slide) {
     // ✅ จัดเรียง
     wrapper.appendChild(selectedDisplay);
     wrapper.appendChild(buttonGrid);
-
   }
+
   container.appendChild(wrapper);
 }
+
 
 
 function setupQuizInteractions(slide) {
