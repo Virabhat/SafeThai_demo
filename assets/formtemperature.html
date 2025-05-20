@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="th">
 
 <head>
@@ -135,6 +135,56 @@
         });
     </script>
 
+    <script>
+        function selectTemperature(temp) {
+            window.parent.postMessage({ type: "temperatureSelected", temp: temp }, "*");
+        }
+    </script>
+
 </body>
 
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Temperature Form</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      background-color: #800080;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>เลือกอุณหภูมิ</h2>
+  <button onclick="selectTemperature(16)">16°C</button>
+  <button onclick="selectTemperature(18)">18°C</button>
+  <button onclick="selectTemperature(20)">20°C</button>
+  <button onclick="selectTemperature(22)">22°C</button>
+  <button onclick="selectTemperature(24)">24°C</button>
+
+  <script>
+    function selectTemperature(temp) {
+      console.log("📤 ส่งข้อมูล temperature:", temp);
+      window.parent.postMessage({ type: "temperatureSelected", temp: temp }, "*");
+    }
+  </script>
+</body>
 </html>
