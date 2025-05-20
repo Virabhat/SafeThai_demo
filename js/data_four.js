@@ -13,10 +13,10 @@ const slidesPart4 = [
     type: "question",
     image: baseUrl + "assets/images/64.webp",
     choices: [
-      { id: "mode_one", label: "ออกไปเเปปเดียวไม่เป็นอะไร" ,nextIndex: 68, styleClass: "text-screen-67" },
-      { id: "mode_two", label: "กด sleep Mode" , nextIndex: 70, styleClass: "text-screen-67" },
-      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 72, styleClass: "text-screen-67" },
-    ],
+      { id: "mode_one", label: "เปิดค้างไว้เดี๋ยวก็กลับ" ,nextIndex: 69, styleClass: "text-screen-67" },
+      { id: "mode_two", label: "กด Sleep Mode" , nextIndex: 71, styleClass: "text-screen-67" },
+      { id: "mode_three", label: "ปิดคอมเลยดีกว่า" , nextIndex: 73, styleClass: "text-screen-67" },
+    ],styleClass: "text-screen-67-type",
   },
   {
     //68
@@ -82,23 +82,22 @@ const slidesPart4 = [
     //76
     type: "narration",
     image: baseUrl + "assets/images/66.webp",
-    texts: [],
+    texts: [{ content: " ไหนดูรีโมตหน่อย ", delay: 1000, position: "top" }],
   },
   {
     //77
     type: "narration",
     image: baseUrl + "assets/images/67.webp",
-    texts: [],
   },
   {
     //78
     type: "question",
     image: baseUrl + "assets/images/68.webp",
     choices: [
-      { id: "air_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 79 , styleClass: "text-screen-67" },
-      { id: "air_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 80 , styleClass: "text-screen-67" },
-      { id: "air_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 81 , styleClass: "text-screen-67" },
-    ],
+      { id: "air_one", label: "ปิดเเอร์เลยดีกว่า",nextIndex: 82, styleClass: "text-screen-67" },
+      { id: "air_two", label: "เปลี่ยนเป็น 26 องศา",nextIndex: 82 , styleClass: "text-screen-67" },
+      { id: "air_three", label: "เอาไว้เเบบนี้เเหละ",nextIndex: 80 , styleClass: "text-screen-67" },
+    ],styleClass: "special-question-style"
   },
   {
     //79
@@ -140,9 +139,7 @@ const slidesPart4 = [
     //84
     type: "narration",
     image: baseUrl + "assets/images/71.webp",
-    texts: [{ content: "คุณดูรายการโปรดอย่างมีความสุข\nจนไม่รู้ว่าเวลาผ่านไปนานเเค่ไหนเเล้ว", delay: 2000, position: "top", styleClass: "text-screen-82" }],
-    duration: 9000
-
+    texts: [{ content: "คุณดูรายการโปรดอย่างมีความสุข\nจนไม่รู้ว่าเวลาผ่านไปนานเเค่ไหนเเล้ว", delay: 8000, position: "top", styleClass: "text-screen-82" }],
   },
   {
     //85
@@ -155,8 +152,8 @@ const slidesPart4 = [
     type: "question",
     image: baseUrl + "assets/images/73.webp",
     choices: [
-      { id: "iron_one", label: "รีดผ้าทั้งหมดทันที",nextIndex: 87  ,styleClass: "text-screen-67" },
-      { id: "iron_two", label: "รีดเฉพาะชุดที่จะใส่",nextIndex: 88 , styleClass: "text-screen-67"},
+      { id: "iron_one", label: "รีดผ้าทั้งหมดทันที",nextIndex: 89  ,styleClass: "text-screen-67" },
+      { id: "iron_two", label: "รีดเฉพาะชุดที่จะใส่",nextIndex: 89 , styleClass: "text-screen-67"},
     ],
   },
   {
@@ -250,7 +247,7 @@ const slidesPart4 = [
     glows: [
       { id: "light", top: "14%", left: "43%" },
       { id: "iron", top: "62%", left: "21%" }
-    ],
+    ],failNextTo: 100
   },
   {
     //100

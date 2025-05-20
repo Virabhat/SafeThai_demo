@@ -8,7 +8,7 @@ const slidesPart3  = [
     image: baseUrl + "/assets/images/46.webp",
     choices: [
       { id: "home", label: "สั่งกลับบ้าน", nextIndex: 53,styleClass: "text-button1-48"},
-      { id: "here", label: "กินที่นี้", nextIndex: 51,styleClass: "text-button2-48" },
+      { id: "here", label: "กินที่นี่", nextIndex: 51,styleClass: "text-button2-48" },
     ],
   },
   {
@@ -79,6 +79,7 @@ const slidesPart3  = [
     type: "narration",
     image: baseUrl + "assets/images/57.webp",
     texts: [],
+    duration: 1000
   },
   {
     //62

@@ -95,7 +95,7 @@ const slidesPart2 = [
     image: baseUrl + "/assets/images/34.webp",
     texts: [
       { content: "บนชั้นวาง\nมีหลอดไฟ 3 เเบบ", delay: 2000, position: "top", styleClass: "question2-text-one" },
-      { content: "คลิกเลือกลำดับ", delay: 2000, position: "top", styleClass: "question2-text-two" }
+      { content: "คลิกเพื่อเลือก", delay: 2000, position: "top", styleClass: "question2-text-two" }
     ],
     choices: [
       { id: "light_one", label: "หลอดไส้", nextIndex: 37 },
@@ -185,7 +185,7 @@ const slidesPart2 = [
     //48
     type: "narration",
     image: baseUrl + "/assets/images/44.webp",
-    texts: [],
+    texts: [{ content: "คุณได้ของที่ต้องการ\nครบเเล้ว", delay: 1000, position: "top" }],
   },
   {
     //49

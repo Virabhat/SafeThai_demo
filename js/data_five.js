@@ -70,8 +70,8 @@ const slidesPart5 = [
     type: "question",
     image: baseUrl + "assets/images/98.webp",
     choices: [
-      { id: "type_one", label: "ชาร์จโปรศัทพ์ทิ้งไว้", nextIndex: 116 },
-      { id: "type_two", label: "ค่อยชาร์จพรุ่งนี้", nextIndex: 117 },
+      { id: "type_one", label: "ชาร์จโทรศัทพ์ทิ้งไว้", nextIndex: 116 },
+      { id: "type_two", label: "ค่อยชาร์จพรุ่งนี้", nextIndex: 116 },
     ],
   },
   {
@@ -104,147 +104,155 @@ const slidesPart5 = [
   },
   {
     //118
+    type: "narration",
+    image: baseUrl + "assets/images/102.webp",
+    texts: [],
+    transition: "no-transition"
+
+  },
+  {
+    //119
     type: "form",
     image: baseUrl + "assets/images/102.webp",
     formType: "temperature",
   },
   {
-    //119
+    //120
     type: "narration",
     image: baseUrl + "assets/images/103.webp",
     texts: [],
   },
   {
-    //120
+    //121
     type: "narration",
     image: baseUrl + "assets/images/104.webp",
     texts: [],
   },
   {
-    //121
+    //122
     type: "narration",
     image: baseUrl + "assets/images/105.webp",
     texts: [],
   },
   {
-    //122
+    //123
     type: "narration",
     image: baseUrl + "assets/images/106.webp",
     texts: [],
   },
   {
-    //123
+    //124
     type: "question",
     image: baseUrl + "assets/images/107.webp",
     choices: [
-      { id: "zero", label: "", nextIndex: 124, styleClass: "button-zero" },
-      { id: "one", label: "", nextIndex: 125, styleClass: "button-one" },
-      { id: "two", label: "", nextIndex: 126, styleClass: "button-two" },
-      { id: "three", label: "", nextIndex: 127, styleClass: "button-three" },
+      { id: "zero", label: "", nextIndex: 125, styleClass: "button-zero" },
+      { id: "one", label: "", nextIndex: 126, styleClass: "button-one" },
+      { id: "two", label: "", nextIndex: 127, styleClass: "button-two" },
+      { id: "three", label: "", nextIndex: 128, styleClass: "button-three" },
     ],
-
-  },
-  {
-    //124
-    type: "narration",
-    image: baseUrl + "assets/images/107_0.webp",
-    texts: [],
-    autoNextTo: 128
 
   },
   {
     //125
     type: "narration",
-    image: baseUrl + "assets/images/107_1.webp",
+    image: baseUrl + "assets/images/107_0.webp",
     texts: [],
-    autoNextTo: 128
+    autoNextTo: 129
 
   },
   {
     //126
     type: "narration",
-    image: baseUrl + "assets/images/107_2.webp",
+    image: baseUrl + "assets/images/107_1.webp",
     texts: [],
-    autoNextTo: 128
+    autoNextTo: 129
 
   },
   {
     //127
     type: "narration",
-    image: baseUrl + "assets/images/107_3.webp",
+    image: baseUrl + "assets/images/107_2.webp",
     texts: [],
-    autoNextTo: 128
+    autoNextTo: 129
 
   },
   {
     //128
     type: "narration",
+    image: baseUrl + "assets/images/107_3.webp",
+    texts: [],
+    autoNextTo: 129
+
+  },
+  {
+    //129
+    type: "narration",
     image: baseUrl + "assets/images/109.webp",
     texts: [{ content: "อากาศเย็นทำให้คุณง่วงมากขึ้นทุกที\nในที่สุดคุณก็เคลิ้มหลับไป", delay: 2000, position: "top", styleClass: "text-screen-128" }],
   },
   {
-    //129
+    //130
     type: "narration",
     image: baseUrl + "assets/images/bg_black.jpg",
     texts: [],
   },
   {
-    //130
+    //131
     type: "narration",
     image: baseUrl + "assets/images/110.webp",
     texts: [],
   },
   {
-    //131
+    //132
     type: "narration",
     image: baseUrl + "assets/images/111.webp",
     texts: [],
   },
   {
-    //132
+    //133
     type: "narration",
     image: baseUrl + "assets/images/112.webp",
     texts: [],
   },
   {
-    //133
+    //134
     type: "narration",
     image: baseUrl + "assets/images/113.webp",
     texts: [],
   },
   {
-    //134
-    type: "narration",
-    image: baseUrl + "assets/images/114.webp",
-    texts: ["ยินดีด้วยคุณ {userName} 🎉"],
-    download: true
-  },
-  {
     //135
     type: "narration",
-    image: baseUrl + "assets/images/115.webp",
-    texts: ["ยินดีด้วยคุณ {userName} 🎉"],
+    image: baseUrl + "assets/images/114.webp",
+    texts: ["คุณ {userName} 🎉"],
     download: true
   },
   {
     //136
     type: "narration",
-    image: baseUrl + "assets/images/116.webp",
-    texts: ["ยินดีด้วยคุณ {userName} 🎉"],
+    image: baseUrl + "assets/images/115.webp",
+    texts: ["คุณ {userName} 🎉"],
     download: true
   },
   {
     //137
     type: "narration",
-    image: baseUrl + "assets/images/117.webp",
-    texts: ["ยินดีด้วยคุณ {userName} 🎉"],
+    image: baseUrl + "assets/images/116.webp",
+    texts: ["คุณ {userName} 🎉"],
     download: true
   },
   {
     //138
     type: "narration",
+    image: baseUrl + "assets/images/117.webp",
+    texts: ["คุณ {userName} 🎉"],
+    download: true
+  },
+  {
+    //139
+    type: "narration",
     image: baseUrl + "assets/images/118.webp",
-    texts: ["ยินดีด้วยคุณ {userName} 🎉"],
+    texts: ["คุณ {userName} 🎉"],
     download: true
   },
 ];

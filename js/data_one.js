@@ -152,35 +152,35 @@ const slidesPart1 = [
   {
     //21
     type: "quiz",
-    image: baseUrl + "assets/images/19.webp",
+    image: baseUrl + "assets/images/26_2.webp",
     duration: 5000,
     failNextTo: 23 ,
-    overlays: [
-      {
-        id: "light",
-        src: "assets/elements/turn-on-light.png",
-        top: "24px",
-        left: "56px",
-        width: "173px",
-        offClass: "light-off-style",
-      },
-      {
-        id: "tv",
-        src: "assets/elements/tv-open.png",
-        top: "42%",
-        left: "-25%",
-        width: "201px",
-        offClass: "tv-off-style",
-      },
-      {
-        id: "fan",
-        src: "assets/elements/fan.png",
-        top: "54%",
-        left: "24%",
-        width: "96px",
-        offClass: "fan-off-style",
-      },
-    ],
+    // overlays: [
+    //   {
+    //     id: "light",
+    //     src: "assets/elements/turn-on-light.png",
+    //     top: "24px",
+    //     left: "56px",
+    //     width: "173px",
+    //     offClass: "light-off-style",
+    //   },
+    //   {
+    //     id: "tv",
+    //     src: "assets/elements/tv-open.png",
+    //     top: "42%",
+    //     left: "-25%",
+    //     width: "201px",
+    //     offClass: "tv-off-style",
+    //   },
+    //   {
+    //     id: "fan",
+    //     src: "assets/elements/fan.png",
+    //     top: "54%",
+    //     left: "24%",
+    //     width: "96px",
+    //     offClass: "fan-off-style",
+    //   },
+    // ],
     glows: [
       { id: "light", top: "6%", left: "38%" },
       { id: "tv", top: "40%", left: "7%" },
