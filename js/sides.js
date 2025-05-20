@@ -28,9 +28,9 @@ const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
 let score = 0;
-let userName = ""; // ✅ ตัวแปรเก็บชื่อผู้ใช้
+let userName = "";
 
-let currentSlide = 108;
+let currentSlide = 0;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -40,11 +40,11 @@ let clickedIds = new Set();
 
 
 window.addEventListener("message", (event) => {
-    if (event.data.action === "nextSlide" && event.data.slideIndex !== undefined) {
-        console.log(`➡️ กำลังเปลี่ยนไปสไลด์ ${event.data.slideIndex}`);
-        currentSlide = event.data.slideIndex;
-        showSlide(currentSlide);
-    }
+  if (event.data.action === "nextSlide" && event.data.slideIndex !== undefined) {
+    console.log(`➡️ กำลังเปลี่ยนไปสไลด์ ${event.data.slideIndex}`);
+    currentSlide = event.data.slideIndex;
+    showSlide(currentSlide);
+  }
 });
 
 function showSlide(index) {
@@ -62,7 +62,7 @@ function showSlide(index) {
     return;
   }
 
-  
+
   container
     .querySelectorAll(".text-overlay, .overlay, .glow-dot, .time-bar-container, .question-container, .intro-overlay, .form-slide, .swiper-wrapper")
     .forEach((el) => el.remove());
@@ -72,8 +72,20 @@ function showSlide(index) {
   quizTimer = null;
 
   if (slide.type === "narration" && userName) {
-    slide.texts = slide.texts.map(text => text.replace("{userName}", userName));
-  }
+  slide.texts = slide.texts.map(text => {
+    if (typeof text === "string") {
+      return text.replace("{userName}", userName);
+    }
+    if (typeof text === "object" && text.content) {
+      return {
+        ...text,
+        content: text.content.replace("{userName}", userName)
+      };
+    }
+    return text;
+  });
+}
+
 
   const currentImg = isImg1Active ? img1 : img2;
   const nextImg = isImg1Active ? img2 : img1;
@@ -92,6 +104,57 @@ function showSlide(index) {
     console.log(`➡️ Next autoNextTo: ${slide.autoNextTo}`);
     console.log(`🎯 คะเเนนของคุณ ${score}`);
     console.log(`🔄 Transition: ${slide.transition || "default"}`);
+
+    if (slide.download) {
+      const downloadButton = document.createElement("button");
+      downloadButton.className = "download-button";
+      downloadButton.textContent = "📥 ดาวน์โหลดรูป";
+
+      downloadButton.addEventListener("click", async () => {
+        try {
+          const imageUrl = slide.image.replace("baseUrl + ", "");
+          console.log(`⏳ กำลังดาวน์โหลด: ${imageUrl}`);
+
+          // ✅ ตรวจสอบว่าไฟล์สามารถเข้าถึงได้
+          const response = await fetch(imageUrl);
+          if (!response.ok) {
+            console.error(`❌ ไม่สามารถดาวน์โหลดรูปภาพ: ${imageUrl}`);
+            return;
+          }
+
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.download = imageUrl.split("/").pop();
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(blobUrl);
+
+          console.log(`✅ ดาวน์โหลดเสร็จสิ้น: ${imageUrl}`);
+        } catch (error) {
+          console.error(`❌ เกิดข้อผิดพลาดในการดาวน์โหลด: ${error.message}`);
+        }
+      });
+
+      downloadButton.style.cssText = `
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: #800080;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Mitr', Arial, sans-serif;
+        font-size: 16px;
+    `;
+
+      container.appendChild(downloadButton);
+    }
 
     if (slide.texts && slide.texts.length > 0) {
       console.log("📝 ข้อความในสไลด์:");
@@ -207,6 +270,129 @@ function applyTransition(currentImg, nextImg, transition) {
 }
 
 
+// function renderFormSlide() {
+//   const slide = slides[currentSlide];
+//   const formWrapper = document.createElement("div");
+//   formWrapper.className = "form-slide";
+//   formWrapper.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;z-index:100";
+
+//   let formContent = "";
+
+//   // เงื่อนไข: ฟอร์มเลือกอุณหภูมิ //
+//   if (slide.formType === "temperature") {
+//     const options = Array.from({ length: 14 }, (_, i) => 16 + i)
+//       .map(temp => `<option value="${temp}">${temp}°C</option>`)
+//       .join("");
+
+//     formContent = `
+//       <div style="margin-bottom: 20px;">
+//         <label for="tempSelect" style="font-weight: bold;">เลือกอุณหภูมิแอร์:</label><br/>
+//         <select id="tempSelect" style="margin-top: 8px; padding: 8px; width: 200px;">
+//           ${options}
+//         </select>
+//       </div>
+//     `;
+//   }
+//   // default → ฟอร์มลงชื่อเข้าใช้
+//   else {
+//     formContent = `
+//       <div style="margin-bottom: 20px;">
+//         <img src="assets/images_form/one.png" alt="logo_one" style="width: 180px; margin-bottom: 10px;" />
+//         <img src="assets/images_form/two.png" alt="logo_two" style="width: 180px; margin-bottom: 20px;" />
+
+//         <div style="margin-bottom: 24px;">
+//           <img src="assets/images_form/four.png" alt="logo_four" style="width: 80px;" />
+//           <img src="assets/images_form/three.png" alt="logo_three" style="width: 80px;" />
+//         </div>
+
+//         <div style="margin-top: 20px; font-size: 24px; font-weight: bold;">ชื่อ</div>
+//         <div style="font-size: 10px; color: #444; margin-bottom: 6px;">
+//           (กรุณากรอกชื่อเป็นภาษาอังกฤษ ห้ามเว้นวรรค หรือใส่สัญลักษณ์)
+//         </div>
+//         <input  id="userName" type="text" placeholder="ชื่อของคุณ" style="padding: 12px; font-size: 18px; width: 250px; border-radius: 8px; border: 2px solid #800080; font-family: 'Mitr'; text-align: center;" />
+//         <br><br>
+//     `;
+//   }
+
+//   // ✅ รวมฟอร์ม + ปุ่ม
+//   formWrapper.innerHTML = `
+//   <div style="
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     padding: 32px 24px;
+//     border-radius: 16px;
+//     text-align: center;
+//     font-family: 'Mitr', Arial, sans-serif;
+//   ">
+//     ${formContent}
+//     <button id="submitFormBtn" style="
+//       margin-top: 16px;
+//       padding: 12px 32px;
+//       background-color: #800080;
+//       color: white;
+//       font-family: 'Mitr', Arial, sans-serif;
+//       font-size: 18px;
+//       font-weight: regular;
+//       border: none;
+//       border-radius: 10px;
+//       cursor: pointer;
+//     ">ถัดไป</button>
+//   </div>
+// `;
+
+
+//   container.appendChild(formWrapper);
+
+//   document.getElementById("submitFormBtn").addEventListener("click", () => {
+
+//     if (slide.formType !== "temperature") {
+//       const userName = document.getElementById("userName").value.trim();
+//       if (userName === "") {
+//         Swal.fire({
+//           title: 'ข้อมูลไม่ครบ!',
+//           text: 'กรุณากรอกชื่อของคุณ',
+//           icon: 'warning',
+//           confirmButtonText: 'ตกลง',
+//           customClass: {
+//             popup: 'swal2-popup',
+//             title: 'swal2-title',
+//             confirmButton: 'swal2-confirm'
+//           },
+//           backdrop: `
+//     rgba(0,0,0,0.5)
+//     blur(10px)
+//   `
+//         });
+
+//         return; // ❌ หยุดไม่ให้ไปต่อ
+//       }
+//     }
+
+
+//     if (slide.formType === "temperature") {
+//       const temp = document.getElementById("tempSelect").value;
+//       localStorage.setItem("selectedTemp", temp);
+//       console.log(`🌡️ เลือกอุณหภูมิ: ${temp}°C`);
+
+//       const tempScore = tempScores[temp] ?? 0; // ถ้าไม่มีใน object จะได้ 0 คะแนน
+//       score += tempScore;
+
+//       if (tempScore > 0) {
+//         console.log(`✅ ได้ ${tempScore} คะแนนจากอุณหภูมิ ${temp}°C`);
+//       } else if (tempScore < 0) {
+//         console.log(`⚠️ เสีย ${Math.abs(tempScore)} คะแนนจากอุณหภูมิ ${temp}°C`);
+//       } else {
+//         console.log("ℹ️ 0 คะแนน อุณหภูมิปานกลาง");
+//       }
+//     }
+//     formWrapper.remove();
+//     goToNextSlide();
+//   });
+
+// }
+
 function renderFormSlide() {
   const slide = slides[currentSlide];
   const formWrapper = document.createElement("div");
@@ -215,44 +401,15 @@ function renderFormSlide() {
 
   let formContent = "";
 
-  // เงื่อนไข: ฟอร์มเลือกอุณหภูมิ //
+  // ✅ กรณี: ฟอร์มเลือกอุณหภูมิ (ใช้ iframe)
   if (slide.formType === "temperature") {
-    const options = Array.from({ length: 14 }, (_, i) => 16 + i)
-      .map(temp => `<option value="${temp}">${temp}°C</option>`)
-      .join("");
-
     formContent = `
-      <div style="margin-bottom: 20px;">
-        <label for="tempSelect" style="font-weight: bold;">เลือกอุณหภูมิแอร์:</label><br/>
-        <select id="tempSelect" style="margin-top: 8px; padding: 8px; width: 200px;">
-          ${options}
-        </select>
-      </div>
+      <iframe src="assets/formtemperature.html" style="width:100%;height:100%;border:none;"></iframe>
     `;
   }
-  // default → ฟอร์มลงชื่อเข้าใช้
+  // ✅ ฟอร์มลงชื่อเข้าใช้ (default)
   else {
     formContent = `
-      <div style="margin-bottom: 20px;">
-        <img src="assets/images_form/one.png" alt="logo_one" style="width: 180px; margin-bottom: 10px;" />
-        <img src="assets/images_form/two.png" alt="logo_two" style="width: 180px; margin-bottom: 20px;" />
-
-        <div style="margin-bottom: 24px;">
-          <img src="assets/images_form/four.png" alt="logo_four" style="width: 80px;" />
-          <img src="assets/images_form/three.png" alt="logo_three" style="width: 80px;" />
-        </div>
-
-        <div style="margin-top: 20px; font-size: 24px; font-weight: bold;">ชื่อ</div>
-        <div style="font-size: 10px; color: #444; margin-bottom: 6px;">
-          (กรุณากรอกชื่อเป็นภาษาอังกฤษ ห้ามเว้นวรรค หรือใส่สัญลักษณ์)
-        </div>
-        <input  id="userName" type="text" placeholder="ชื่อของคุณ" style="padding: 12px; font-size: 18px; width: 250px; border-radius: 8px; border: 2px solid #800080; font-family: 'Mitr'; text-align: center;" />
-        <br><br>
-    `;
-  }
-
-  // ✅ รวมฟอร์ม + ปุ่ม
-  formWrapper.innerHTML = `
   <div style="
     position: absolute;
     top: 50%;
@@ -263,7 +420,28 @@ function renderFormSlide() {
     text-align: center;
     font-family: 'Mitr', Arial, sans-serif;
   ">
-    ${formContent}
+    <img src="assets/images_form/one.png" alt="logo_one" style="width: 180px; margin-bottom: 10px;" />
+    <img src="assets/images_form/two.png" alt="logo_two" style="width: 180px; margin-bottom: 20px;" />
+
+    <div style="margin-bottom: 24px;">
+      <img src="assets/images_form/four.png" alt="logo_four" style="width: 80px;" />
+      <img src="assets/images_form/three.png" alt="logo_three" style="width: 80px;" />
+    </div>
+
+    <div style="margin-top: 20px; font-size: 24px; font-weight: bold;">ชื่อ</div>
+    <div style="font-size: 10px; color: #444; margin-bottom: 6px;">
+      (กรุณากรอกชื่อเป็นภาษาอังกฤษ ห้ามเว้นวรรค หรือใส่สัญลักษณ์)
+    </div>
+    <input id="userName" type="text" placeholder="ชื่อของคุณ" style="
+      padding: 12px; 
+      font-size: 18px; 
+      width: 250px; 
+      border-radius: 8px; 
+      border: 2px solid #800080; 
+      font-family: 'Mitr'; 
+      text-align: center;
+    " />
+    <br><br>
     <button id="submitFormBtn" style="
       margin-top: 16px;
       padding: 12px 32px;
@@ -279,63 +457,58 @@ function renderFormSlide() {
   </div>
 `;
 
+  }
 
+  // ✅ รวมฟอร์ม + ปุ่ม
+  formWrapper.innerHTML = formContent;
   container.appendChild(formWrapper);
 
-  document.getElementById("submitFormBtn").addEventListener("click", () => {
-
-    if (slide.formType !== "temperature") {
-      const userName = document.getElementById("userName").value.trim();
-      if (userName === "") {
-        Swal.fire({
-          title: 'ข้อมูลไม่ครบ!',
-          text: 'กรุณากรอกชื่อของคุณ',
-          icon: 'warning',
-          confirmButtonText: 'ตกลง',
-          customClass: {
-            popup: 'swal2-popup',
-            title: 'swal2-title',
-            confirmButton: 'swal2-confirm'
-          },
-          backdrop: `
-    rgba(0,0,0,0.5)
-    blur(10px)
-  `
-        });
-
-        return; // ❌ หยุดไม่ให้ไปต่อ
-      }
+  // ✅ กรณีฟอร์มลงชื่อเข้าใช้
+  document.getElementById("submitFormBtn")?.addEventListener("click", () => {
+    const inputName = document.getElementById("userName")?.value.trim();
+    if (!inputName) {
+      Swal.fire({
+        title: 'ข้อมูลไม่ครบ!',
+        text: 'กรุณากรอกชื่อของคุณ',
+        icon: 'warning',
+        confirmButtonText: 'ตกลง',
+        customClass: {
+          popup: 'swal2-popup',
+          title: 'swal2-title',
+          confirmButton: 'swal2-confirm'
+        },
+        backdrop: `
+          rgba(0,0,0,0.5)
+          blur(10px)
+        `
+      });
+      return;
     }
 
+    // ✅ เก็บชื่อไว้ในตัวแปร
+    userName = inputName;
+    console.log(`👤 ชื่อที่กรอก: ${userName}`);
+    localStorage.setItem("userName", userName); // ✅ เก็บใน localStorage ด้วย
 
-    if (slide.formType === "temperature") {
-      const temp = document.getElementById("tempSelect").value;
-      localStorage.setItem("selectedTemp", temp);
-      console.log(`🌡️ เลือกอุณหภูมิ: ${temp}°C`);
-
-      const tempScore = tempScores[temp] ?? 0; // ถ้าไม่มีใน object จะได้ 0 คะแนน
-      score += tempScore;
-
-      if (tempScore > 0) {
-        console.log(`✅ ได้ ${tempScore} คะแนนจากอุณหภูมิ ${temp}°C`);
-      } else if (tempScore < 0) {
-        console.log(`⚠️ เสีย ${Math.abs(tempScore)} คะแนนจากอุณหภูมิ ${temp}°C`);
-      } else {
-        console.log("ℹ️ 0 คะแนน อุณหภูมิปานกลาง");
-      }
-    }
     formWrapper.remove();
     goToNextSlide();
   });
 
+  // ✅ รับข้อมูลจาก iframe formtemperature
+  window.addEventListener("message", (event) => {
+    if (event.data.type === "temperatureSelected") {
+      const temp = event.data.temp;
+      const tempScore = tempScores[temp] || 0;
+
+      // ✅ อัปเดตคะแนน
+      score += tempScore;
+      console.log(`🌡️ คุณเลือกอุณหภูมิ: ${temp}°C → ${tempScore} คะแนน`);
+
+      formWrapper.remove();
+      goToNextSlide();
+    }
+  });
 }
-
-
-
-
-
-
-
 
 
 function renderQuestion(slide) {
