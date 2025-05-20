@@ -30,7 +30,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 let userName = ""; // ✅ ตัวแปรเก็บชื่อผู้ใช้
 
-let currentSlide = 106;
+let currentSlide = 108;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;

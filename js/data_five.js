@@ -28,14 +28,14 @@ const slidesPart5 = [
     texts: [],
   },
   {
-    //110
+    //108
     type: "narration",
     image: baseUrl + "assets/images/94.webp",
-    texts: [{ content: "เริ่มง่วงนอนเเล้ว", delay: 2000, position: "top" }],
+    texts: [{ content: "เริ่มง่วงนอนเเล้ว", delay: 2000, position: "top", styleClass: "text-screen-110" }],
     duration: 1000
   },
   {
-    //111
+    //109
     type: "narration",
     image: baseUrl + "assets/images/95.webp",
     texts: [],
@@ -43,7 +43,7 @@ const slidesPart5 = [
     transition: "no-transition"
   },
   {
-    //112
+    //110
     type: "narration",
     image: baseUrl + "assets/images/96.webp",
     texts: [],
@@ -51,22 +51,22 @@ const slidesPart5 = [
     transition: "no-transition"
   },
   {
-    //113
+    //111
     type: "narration",
     image: baseUrl + "assets/images/97.webp",
     texts: [],
     transition: "no-transition"
   },
   {
-    //114
+    //112
     type: "narration",
     image: baseUrl + "assets/images/98.webp",
-    texts: [{ content: "เก็บโทรศัทพ์ดีกว่าเเต่ก่อนจะนอนต้อง", delay: 2000, position: "top" }],
+    texts: [{ content: "เก็บโทรศัทพ์ดีกว่าเเต่ก่อนจะนอนต้อง", delay: 2000, position: "top", styleClass: "text-screen-112"  }],
     transition: "no-transition"
 
   },
   {
-    //115
+    //113
     type: "question",
     image: baseUrl + "assets/images/98.webp",
     choices: [
@@ -75,7 +75,7 @@ const slidesPart5 = [
     ],
   },
   {
-    //116
+    //114
     type: "narration",
     image: baseUrl + "assets/images/99_1.webp",
     texts: [],
@@ -83,7 +83,7 @@ const slidesPart5 = [
 
   },
   {
-    //117
+    //115
     type: "narration",
     image: baseUrl + "assets/images/99_2.webp",
     texts: [],
@@ -91,49 +91,49 @@ const slidesPart5 = [
 
   },
   {
-    //118
+    //116
     type: "narration",
     image: baseUrl + "assets/images/100.webp",
     texts: [],
   },
   {
-    //119
+    //117
     type: "narration",
     image: baseUrl + "assets/images/101.webp",
     texts: [],
   },
   {
-    //120
+    //118
     type: "form",
     image: baseUrl + "assets/images/102.webp",
     formType: "temperature",
   },
   {
-    //121
+    //119
     type: "narration",
     image: baseUrl + "assets/images/103.webp",
     texts: [],
   },
   {
-    //122
+    //120
     type: "narration",
     image: baseUrl + "assets/images/104.webp",
     texts: [],
   },
   {
-    //123
+    //121
     type: "narration",
     image: baseUrl + "assets/images/105.webp",
     texts: [],
   },
   {
-    //124
+    //122
     type: "narration",
     image: baseUrl + "assets/images/106.webp",
     texts: [],
   },
   {
-    //125
+    //123
     type: "question",
     image: baseUrl + "assets/images/107.webp",
     choices: [
@@ -145,7 +145,7 @@ const slidesPart5 = [
 
   },
   {
-    //126
+    //124
     type: "narration",
     image: baseUrl + "assets/images/107_0.webp",
     texts: [],
@@ -153,7 +153,7 @@ const slidesPart5 = [
 
   },
   {
-    //127
+    //125
     type: "narration",
     image: baseUrl + "assets/images/107_1.webp",
     texts: [],
@@ -161,7 +161,7 @@ const slidesPart5 = [
 
   },
   {
-    //128
+    //126
     type: "narration",
     image: baseUrl + "assets/images/107_2.webp",
     texts: [],
@@ -169,7 +169,7 @@ const slidesPart5 = [
 
   },
   {
-    //129
+    //127
     type: "narration",
     image: baseUrl + "assets/images/107_3.webp",
     texts: [],
@@ -177,71 +177,71 @@ const slidesPart5 = [
 
   },
   {
-    //130
+    //128
     type: "narration",
     image: baseUrl + "assets/images/109.webp",
     texts: [{ content: "อากาศเย็นทำให้คุณง่วงมากขึ้นทุกที\nในที่สุดคุณก็เคลิ้มหลับไป", delay: 2000, position: "top", styleClass: "text-screen-128" }],
   },
   {
-    //131
+    //129
     type: "narration",
     image: baseUrl + "assets/images/bg_black.jpg",
     texts: [],
   },
   {
-    //132
+    //130
     type: "narration",
     image: baseUrl + "assets/images/110.webp",
     texts: [],
   },
   {
-    //133
+    //131
     type: "narration",
     image: baseUrl + "assets/images/111.webp",
     texts: [],
   },
   {
-    //134
+    //132
     type: "narration",
     image: baseUrl + "assets/images/112.webp",
     texts: [],
   },
   {
-    //135
+    //133
     type: "narration",
     image: baseUrl + "assets/images/113.webp",
     texts: [],
   },
   {
-    //136
+    //134
     type: "narration",
     image: baseUrl + "assets/images/114.webp",
     texts: ["คุณ {userName},"],
     download: true
   },
   {
-    //137
+    //135
     type: "narration",
     image: baseUrl + "assets/images/115.webp",
     texts: ["คุณ {userName},"],
     download: true
   },
   {
-    //138
+    //136
     type: "narration",
     image: baseUrl + "assets/images/116.webp",
     texts: ["คุณ {userName},"],
     download: true
   },
   {
-    //139
+    //137
     type: "narration",
     image: baseUrl + "assets/images/117.webp",
     texts: ["คุณ {userName},"],
     download: true
   },
   {
-    //140
+    //138
     type: "narration",
     image: baseUrl + "assets/images/118.webp",
     texts: ["คุณ {userName},"],

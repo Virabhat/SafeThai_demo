@@ -201,8 +201,24 @@ html {
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
-  margin-left: 150px !important;
-  
+  margin-left: 150px !important; 
+}
+
+.text-screen-110{
+  top:2% !important;
+}
+
+.text-screen-112{
+  position: absolute;
+  color: #fcfcfc;
+  padding: 10px 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100% !important;
+  font-size: 18px;
+  text-align: center;
+  z-index: 9999; 
+  opacity: 1;
 }
 
 .question1-text-one{
