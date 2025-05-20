@@ -28,14 +28,14 @@ const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
 
 let score = 0;
-let userName = "มิโตมะคุง";
+let userName = "";
 
 localStorage.setItem("userName", userName);
 localStorage.setItem("score", score);
 const baseUrl = "https://safethai.wyndigitalgroup.com/";
 
 // 134
-let currentSlide = 134;
+let currentSlide = 0;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
