@@ -30,7 +30,7 @@ const img2 = document.getElementById("img2");
 let score = 0;
 let userName = ""; // ✅ ตัวแปรเก็บชื่อผู้ใช้
 
-let currentSlide = 118;
+let currentSlide = 135;
 let isImg1Active = true;
 let quizTimer = null;
 let isFinished = false;
@@ -51,7 +51,9 @@ function showSlide(index) {
   clearTimeout(quizTimer);
   quizTimer = null;
 
-
+  if (slide.type === "narration" && userName) {
+    slide.texts = slide.texts.map(text => text.replace("{userName}", userName));
+  }
 
   const currentImg = isImg1Active ? img1 : img2;
   const nextImg = isImg1Active ? img2 : img1;

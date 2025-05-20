@@ -231,35 +231,35 @@ const slidesPart5 = [
     //136
     type: "narration",
     image: baseUrl + "assets/images/114.webp",
-    texts: [],
+    texts: ["คุณ {userName},"],
     download: true
   },
   {
     //137
     type: "narration",
     image: baseUrl + "assets/images/115.webp",
-    texts: [],
+    texts: ["คุณ {userName},"],
     download: true
   },
   {
     //138
     type: "narration",
     image: baseUrl + "assets/images/116.webp",
-    texts: [],
+    texts: ["คุณ {userName},"],
     download: true
   },
   {
     //139
     type: "narration",
     image: baseUrl + "assets/images/117.webp",
-    texts: [],
+    texts: ["คุณ {userName},"],
     download: true
   },
   {
     //140
     type: "narration",
     image: baseUrl + "assets/images/118.webp",
-    texts: [],
+    texts: ["คุณ {userName},"],
     download: true
   },
 ];
